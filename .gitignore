@@ -21,3 +21,11 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+### Vuejs ###
+# Recommended template: Node.gitignore
+node_modules/
+dist/
+
+test/
+docs/_book
