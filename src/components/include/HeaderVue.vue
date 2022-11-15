@@ -2,7 +2,11 @@
   <header id="header">
     <div class="container d-flex align-items-center">
       <div id="main--logo">
-        <img src="@/assets/img/mainLogo.png" alt="#" style="width: 75px; height: 75px" />
+        <img
+          src="@/assets/img/mainLogo.png"
+          alt="#"
+          style="width: 75px; height: 75px"
+        />
       </div>
       <h1 class="logo me-auto"><a href="#"></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
@@ -10,7 +14,11 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><router-link class="nav-link scrollto active" to="/">Home</router-link></li>
+          <li>
+            <router-link class="nav-link scrollto active" to="/"
+              >Home</router-link
+            >
+          </li>
           <li><a class="nav-link scrollto" href="#">아파트 매매 정보</a></li>
           <li><a class="nav-link scrollto" href="#">소개</a></li>
           <li><router-link to="/board">공지사항</router-link></li>
@@ -39,11 +47,30 @@
             </v-menu>
           </li> -->
           <li class="dropdown">
-            <a href="#" class="getstarted scrollto"> <span>Log In</span><i class="bi bi-chevron-down"></i> </a>
+            <a href="#" class="getstarted scrollto">
+              <span>Log In</span><i class="bi bi-chevron-down"></i>
+            </a>
+
             <ul>
-              <li><router-link to="/users/login" class="menu-items">로그인</router-link></li>
-              <li><a href="#" class="menu-items">회원가입</a></li>
-              <li><a href="#" class="menu-items">ID PWD 찾기</a></li>
+              <div v-if="!userStore.userInfo.id">
+                <li>
+                  <router-link to="/users/login" class="menu-items"
+                    >로그인</router-link
+                  >
+                </li>
+                <li><a href="#" class="menu-items">회원가입</a></li>
+                <li><a href="#" class="menu-items">ID PWD 찾기</a></li>
+              </div>
+              <div v-else>
+                <li><a href="#">로그아웃</a></li>
+                <li><a href="#">회원정보 확인</a></li>
+                <li><a href="#">관심지역 조회</a></li>
+              </div>
+
+              <!--admin-->
+              <!-- <li><a href="#">로그아웃</a></li>
+              <li><a href="#">공지사항 관리</a></li> -->
+              <!--login-->
             </ul>
           </li>
         </ul>
@@ -55,6 +82,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data: () => ({
     // selectedItem: 1,
@@ -64,6 +93,9 @@ export default {
     //   { title: "ID PWD 찾기", icon: "mdi-flag" },
     // ],
   }),
+  computed: {
+    ...mapState(["userStore"]),
+  },
 };
 </script>
 

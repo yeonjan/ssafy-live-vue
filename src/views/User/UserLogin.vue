@@ -45,7 +45,9 @@
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">필수 항목입니다.</div>
                   </div>
-                  <button type="button" id="btn-login" @click="login">로그인</button>
+                  <button type="button" id="btn-login" @click="login">
+                    로그인
+                  </button>
                   <button
                     type="button"
                     style="float: right"
@@ -65,22 +67,46 @@
       </div>
     </div>
     <!-- section modal -search password -->
-    <div class="modal fade" id="search-pwd" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="search-pwd"
+      tabindex="-1"
+      aria-labelledby="searchModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header" style="background: #f8f9fa">
             <h5 class="modal-btn-pwd" id="modal-btn">비밀번호 찾기</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
-                <label for="search-user-id" class="col-form-label">아이디:</label>
-                <input type="text" class="form-control" id="search-user-id" required />
+                <label for="search-user-id" class="col-form-label"
+                  >아이디:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="search-user-id"
+                  required
+                />
               </div>
               <div class="mb-3">
                 <label for="search-user-name" class="form-label">이름 : </label>
-                <input type="text" class="form-control" id="search-user-name" name="search-user-name" required />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="search-user-name"
+                  name="search-user-name"
+                  required
+                />
               </div>
               <label for="search-email-id" class="form-label">이메일 : </label>
               <div class="input-group">
@@ -109,10 +135,21 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" id="search-btn-pwd" onclick="searchPwd()" class="btn btn-primary">
+            <button
+              type="button"
+              id="search-btn-pwd"
+              onclick="searchPwd()"
+              class="btn btn-primary"
+            >
               비밀번호 찾기
             </button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
           </div>
         </div>
       </div>
@@ -125,9 +162,6 @@ import { Carousel } from "vue-carousel";
 export default {
   components: { Carousel },
 
-  created() {
-    console.log("ht");
-  },
   methods: {
     async login() {
       console.log("로그인 시도");
