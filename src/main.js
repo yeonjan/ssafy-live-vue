@@ -28,7 +28,7 @@ Vue.config.productionTip = false;
 
 new Vue({
   created() {
-    VueAos.init();
+    // VueAos.init();
   },
   router,
   store,

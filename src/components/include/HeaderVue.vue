@@ -17,7 +17,7 @@
           <li class="dropdown">
             <a href="#" class="getstarted scrollto"><span>Log In</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">로그인</a></li>
+              <li><router-link to="/users/login">로그인</router-link></li>
               <li><a href="#">회원가입</a></li>
               <li><a href="#">ID PWD 찾기</a></li>
             </ul>
