@@ -41,9 +41,9 @@
           <li class="dropdown">
             <a href="#" class="getstarted scrollto"> <span>Log In</span><i class="bi bi-chevron-down"></i> </a>
             <ul>
-              <li><router-link to="/users/login">로그인</router-link></li>
-              <li><a href="#">회원가입</a></li>
-              <li><a href="#">ID PWD 찾기</a></li>
+              <li><router-link to="/users/login" class="menu-items">로그인</router-link></li>
+              <li><a href="#" class="menu-items">회원가입</a></li>
+              <li><a href="#" class="menu-items">ID PWD 찾기</a></li>
             </ul>
           </li>
         </ul>
@@ -57,12 +57,12 @@
 <script>
 export default {
   data: () => ({
-    selectedItem: 1,
-    items: [
-      { title: "로그인", icon: "mdi-clock" },
-      { title: "회원가입", icon: "mdi-account" },
-      { title: "ID PWD 찾기", icon: "mdi-flag" },
-    ],
+    // selectedItem: 1,
+    // items: [
+    //   { title: "로그인", icon: "mdi-clock" },
+    //   { title: "회원가입", icon: "mdi-account" },
+    //   { title: "ID PWD 찾기", icon: "mdi-flag" },
+    // ],
   }),
 };
 </script>
@@ -85,11 +85,19 @@ export default {
   color: #ffd369;
 }
 
+#header a[data-v-60f1c612]:hover {
+  color: #47b2e4;
+}
+
 .navbar .getstarted {
   border: 2px solid #ffd369;
 }
 
 .navbar a {
   text-decoration: none;
+}
+
+#header .dropdown ul li a[data-v-60f1c612]:hover {
+  color: #47b2e4;
 }
 </style>

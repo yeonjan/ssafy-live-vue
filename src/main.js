@@ -29,11 +29,7 @@ Vue.config.productionTip = false;
 
 new Vue({
   created() {
-<<<<<<< HEAD
     AOS.init();
-=======
-    // VueAos.init();
->>>>>>> 5a17a518c6fad91d97f40a6c56271bd2db3fa3aa
   },
   router,
   store,
