@@ -13,7 +13,7 @@
           <li><router-link class="nav-link scrollto active" to="/">Home</router-link></li>
           <li><a class="nav-link scrollto" href="#">아파트 매매 정보</a></li>
           <li><a class="nav-link scrollto" href="#">소개</a></li>
-          <li><a class="nav-link scrollto" href="#">공지사항</a></li>
+          <li><router-link to="/board">공지사항</router-link></li>
           <li class="dropdown">
             <a href="#" class="getstarted scrollto"><span>Log In</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
