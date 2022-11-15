@@ -80,12 +80,15 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
+#services {
+  background: #ffffff !important;
+}
+
 .services .icon-box {
   box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
   padding: 50px 30px;
   transition: all ease-in-out 0.4s;
-  background: #fff;
 }
 
 .services .icon-box .icon {
@@ -107,6 +110,7 @@ export default {};
 .services .icon-box h4 a {
   color: #37517e;
   transition: ease-in-out 0.3s;
+  text-decoration: none;
 }
 
 .services .icon-box p {

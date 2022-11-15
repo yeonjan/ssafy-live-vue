@@ -25,4 +25,10 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+.container {
+  /* order: ;
+  background-image: url("@/assets/img/hero-bg.jpg");
+  */
+}
+</style>
