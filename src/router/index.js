@@ -12,7 +12,7 @@ const routes = [
   {
     path: "/board",
     name: "board",
-    component: () => import("@/views/board/AppBoard"),
+    component: () => import("@/views/AppBoard"),
     redirect: "/board/list",
     children: [
       {
@@ -30,6 +30,18 @@ const routes = [
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   // }
+  {
+    path: "/users",
+    name: "users",
+    component: () => import("@/views/AppUser"),
+    children: [
+      {
+        path: "login",
+        name: "login",
+        component: () => import("@/views/User/UserLogin"),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
