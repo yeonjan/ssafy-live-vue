@@ -1,52 +1,35 @@
 <template>
-  <div id="app">
-    <nav>
-      <HeaderVue></HeaderVue>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view />
-  </div>
+  <v-app>
+    <header-vue></header-vue>
+    <div class="main--container">
+      <hero-section-vue />
+      <service-section-vue />
+    </div>
+    <footer-vue></footer-vue>
+  </v-app>
 </template>
 
 <script>
 import HeaderVue from "@/components/include/HeaderVue";
+import FooterVue from "@/components/include/FooterVue";
+import ServiceSectionVue from "@/components/main/ServiceSectionVue.vue";
+import HeroSectionVue from "@/components/main/HeroSectionVue";
+
 export default {
+  name: "App",
+
   components: {
     HeaderVue,
+    FooterVue,
+    ServiceSectionVue,
+    HeroSectionVue,
   },
+
+  data: () => ({
+    //
+  }),
+  mounted() {},
 };
 </script>
 
-<style>
-@import url("@/assets/css/style.css");
-@import url("@/assets/vendor/aos/aos.css");
-@import url("@/assets/vendor/bootstrap/css/bootstrap.min.css");
-@import url("@/assets/vendor/boxicons/css/boxicons.min.css");
-@import url("@/assets/vendor/bootstrap-icons/bootstrap-icons.css");
-@import url("@/assets/vendor/glightbox/css/glightbox.min.css");
-@import url("@/assets/vendor/remixicon/remixicon.css");
-@import url("@/assets/vendor/swiper/swiper-bundle.min.css");
-@import url("@/assets/css/style.css");
-
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-} */
-</style>
+<style></style>

@@ -206,7 +206,7 @@ function makeList(data) {
 	tr.appendChild(areaTd);
 	
 	let dongTd = document.createElement("td");
-	dongTd.appendChild(document.createTextNode(regcode.dong));;
+	dongTd.appendChild(document.createTextNode(regcode.dong));
 	tr.appendChild(dongTd);
 	
 	let priceTd = document.createElement("td");
