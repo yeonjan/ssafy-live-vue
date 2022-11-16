@@ -45,111 +45,80 @@
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">필수 항목입니다.</div>
                   </div>
-                  <button type="button" id="btn-login" @click="login">
-                    로그인
-                  </button>
-                  <button
-                    type="button"
-                    style="float: right"
-                    data-bs-toggle="modal"
-                    data-bs-target="#search-pwd"
-                    data-bs-whatever="@mdo"
-                    id="btn-Search-pwd"
-                    class="btn btn-dark"
-                  >
-                    비밀번호 찾기
-                  </button>
+                  <div>
+                    <button type="button" id="btn-login" class="btn btn-dark" @click="login">로그인</button>
+                    <!-- <button type="button" @click="handle_toggle" style="float: right; margin-top: 10px">
+                      비밀번호 찾기
+                    </button>      -->
+                    <!-- section modal -search password -->
+                    <template>
+                      <div id="search-pwd">
+                        <v-dialog v-model="dialog" persistent max-width="600px">
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text class="float-right" dark v-bind="attrs" v-on="on"> 비밀번호 찾기 </v-text>
+                          </template>
+                          <v-card>
+                            <v-card-title>
+                              <span class="text-h5">비밀번호 찾기</span>
+                            </v-card-title>
+                            <v-card-text>
+                              <v-container>
+                                <v-row>
+                                  <!-- <v-col cols="12" sm="6" md="4">
+                                    <v-text-field label="Legal first name*" required></v-text-field>
+                                  </v-col>
+                                  <v-col cols="12" sm="6" md="4">
+                                    <v-text-field
+                                      label="Legal middle name"
+                                      hint="example of helper text only on focus"
+                                    ></v-text-field>
+                                  </v-col>
+                                  <v-col cols="12" sm="6" md="4">
+                                    <v-text-field
+                                      label="Legal last name*"
+                                      hint="example of persistent helper text"
+                                      persistent-hint
+                                      required
+                                    ></v-text-field>
+                                  </v-col> -->
+                                  <v-col cols="12">
+                                    <v-text-field label="ID" required></v-text-field>
+                                  </v-col>
+                                  <v-col cols="12">
+                                    <v-text-field label="이름" type="password" required></v-text-field>
+                                  </v-col>
+                                  <v-col cols="12" sm="6">
+                                    <v-text-field label="Email" required></v-text-field>
+                                  </v-col>
+                                  <v-col cols="12" sm="6">
+                                    <v-autocomplete
+                                      :items="[
+                                        'google.com',
+                                        'naver.com',
+                                        'daum.net',
+                                        'hanmail.net',
+                                        'ssafy.com',
+                                        'kakao.com',
+                                      ]"
+                                      label="Domains"
+                                    ></v-autocomplete>
+                                  </v-col>
+                                </v-row>
+                              </v-container>
+                            </v-card-text>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="dialog = false"> Close </v-btn>
+                              <v-btn color="blue darken-1" text @click="dialog = false"> Save </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </div>
+                    </template>
+                  </div>
                 </form>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- section modal -search password -->
-    <div
-      class="modal fade"
-      id="search-pwd"
-      tabindex="-1"
-      aria-labelledby="searchModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header" style="background: #f8f9fa">
-            <h5 class="modal-btn-pwd" id="modal-btn">비밀번호 찾기</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="search-user-id" class="col-form-label"
-                  >아이디:</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="search-user-id"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="search-user-name" class="form-label">이름 : </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="search-user-name"
-                  name="search-user-name"
-                  required
-                />
-              </div>
-              <label for="search-email-id" class="form-label">이메일 : </label>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="search-email-id"
-                  name="search-email-id"
-                  placeholder="이메일아이디"
-                  required
-                />
-                <span class="input-group-text">@</span>
-                <select
-                  class="form-select"
-                  id="search-email-domain"
-                  name="search-email-domain"
-                  aria-label="이메일 도메인 선택"
-                >
-                  <option selected>선택</option>
-                  <option value="ssafy.com">싸피</option>
-                  <option value="google.com">구글</option>
-                  <option value="naver.com">네이버</option>
-                  <option value="kakao.com">카카오</option>
-                </select>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              id="search-btn-pwd"
-              onclick="searchPwd()"
-              class="btn btn-primary"
-            >
-              비밀번호 찾기
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              닫기
-            </button>
           </div>
         </div>
       </div>
@@ -175,10 +144,18 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       loginInfo: {},
     };
   },
 };
 </script>
 
-<style></style>
+<style>
+#btn-login {
+  display: block;
+  width: 100%;
+  margin: 20px 0 10px 0;
+  background: #393e46;
+}
+</style>
