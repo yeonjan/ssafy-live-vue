@@ -41,7 +41,11 @@
             </v-menu>
           </li> -->
           <li class="dropdown">
-            <a href="#" class="getstarted scrollto"> <span>Log In</span><i class="bi bi-chevron-down"></i> </a>
+            <a href="#" class="getstarted scrollto">
+              <span v-if="!userStore.userInfo.id">Log In</span>
+              <span v-else>Logout</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
 
             <ul>
               <div v-if="!userStore.userInfo.id">
