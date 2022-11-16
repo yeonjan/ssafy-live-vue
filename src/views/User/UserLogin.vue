@@ -3,8 +3,8 @@
     <div class="container">
       <div class="page_item">
         <div>
-          <div class="row gy-4">
-            <div class="col-lg-8">
+          <div class="row gy-4 justify-content-end">
+            <!-- <div class="col-lg-8">
               <div calss="carousel-wrap">
                 <carousel>
                   <img src="@/assets/img/apt/p1.jpg" alt="#" />
@@ -12,10 +12,10 @@
                   <img src="@/assets/img/apt/p3.png" alt="#" />
                 </carousel>
               </div>
-            </div>
+            </div> -->
 
             <!--로그인-->
-            <div class="col-lg-4">
+            <div class="col-lg-4" id="portfolio-info">
               <div class="portfolio-info">
                 <h3>로그인</h3>
                 <form action="" method="post">
@@ -129,10 +129,10 @@
 </template>
 
 <script>
-import { Carousel } from "vue-carousel";
+// import { Carousel } from "vue-carousel";
 
 export default {
-  components: { Carousel },
+  // components: { Carousel },
 
   data() {
     return {
@@ -179,6 +179,10 @@ export default {
 </script>
 
 <style>
+#portfolio-info {
+  background: #ffffff;
+}
+
 #btn-login {
   display: block;
   width: 100%;
