@@ -47,10 +47,23 @@
                   </div>
                   <div>
                     <button type="button" id="btn-login" class="btn btn-dark" @click="login">로그인</button>
-                    <!-- <button type="button" @click="handle_toggle" style="float: right; margin-top: 10px">
-                      비밀번호 찾기
-                    </button>      -->
-                    <!-- section modal -search password -->
+                    <!-- 비밀번호 찾기 확인 alert Sucess-->
+                    <template>
+                      <div>
+                        <v-alert v-model="alert_success" dismissible type="success">
+                          귀하의 비밀번호 {{ userPwd }}는입니다.
+                        </v-alert>
+                      </div>
+                    </template>
+                    <!-- 비밀번호 찾기 확인 alert Fail-->
+                    <template>
+                      <div>
+                        <v-alert v-model="alert_fail" dismissible type="error">
+                          입력하신 정보와 일치하는 비밀번호가 없습니다.
+                        </v-alert>
+                      </div>
+                    </template>
+                    <!-- 비밀번호 찾기 Dialog -->
                     <template>
                       <div id="search-pwd">
                         <v-dialog v-model="dialog" persistent max-width="600px">
@@ -64,34 +77,23 @@
                             <v-card-text>
                               <v-container>
                                 <v-row>
-                                  <!-- <v-col cols="12" sm="6" md="4">
-                                    <v-text-field label="Legal first name*" required></v-text-field>
+                                  <v-col cols="12">
+                                    <v-text-field label="ID" v-model="userInfo.userId" required></v-text-field>
                                   </v-col>
-                                  <v-col cols="12" sm="6" md="4">
+                                  <v-col cols="12">
                                     <v-text-field
-                                      label="Legal middle name"
-                                      hint="example of helper text only on focus"
-                                    ></v-text-field>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="4">
-                                    <v-text-field
-                                      label="Legal last name*"
-                                      hint="example of persistent helper text"
-                                      persistent-hint
+                                      label="이름"
+                                      type="text"
+                                      v-model="userInfo.userName"
                                       required
                                     ></v-text-field>
-                                  </v-col> -->
-                                  <v-col cols="12">
-                                    <v-text-field label="ID" required></v-text-field>
-                                  </v-col>
-                                  <v-col cols="12">
-                                    <v-text-field label="이름" type="password" required></v-text-field>
                                   </v-col>
                                   <v-col cols="12" sm="6">
-                                    <v-text-field label="Email" required></v-text-field>
+                                    <v-text-field label="Email" v-model="userInfo.emailId" required></v-text-field>
                                   </v-col>
                                   <v-col cols="12" sm="6">
                                     <v-autocomplete
+                                      v-model="userInfo.emailDomain"
                                       :items="[
                                         'google.com',
                                         'naver.com',
@@ -109,7 +111,7 @@
                             <v-card-actions>
                               <v-spacer></v-spacer>
                               <v-btn color="blue darken-1" text @click="dialog = false"> Close </v-btn>
-                              <v-btn color="blue darken-1" text @click="dialog = false"> Save </v-btn>
+                              <v-btn style="color: #222831" text @click="searchPwd()"> Search Pwd </v-btn>
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
@@ -128,8 +130,20 @@
 
 <script>
 import { Carousel } from "vue-carousel";
+
 export default {
   components: { Carousel },
+
+  data() {
+    return {
+      alert_success: false,
+      alert_fail: false,
+      dialog: false,
+      loginInfo: {},
+      userInfo: {},
+      userPwd: "",
+    };
+  },
 
   methods: {
     async login() {
@@ -141,12 +155,25 @@ export default {
         alert("로그인 실패");
       }
     },
-  },
-  data() {
-    return {
-      dialog: false,
-      loginInfo: {},
-    };
+
+    async searchPwd() {
+      console.log("비밀번호 찾기 시도");
+      try {
+        await this.$store.dispatch("userStore/searchPwd", this.userInfo);
+        let userPwd = this.$store.state.userStore.userPwd;
+        this.userPwd = userPwd;
+        console.log(!userPwd);
+        if (userPwd) {
+          this.alert_success = true;
+          this.dialog = false;
+        } else {
+          this.alert_fail = true;
+          this.dialog = false;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>
@@ -157,5 +184,13 @@ export default {
   width: 100%;
   margin: 20px 0 10px 0;
   background: #393e46;
+}
+
+.v-application .error {
+  background: #ff9551;
+}
+
+.v-alert {
+  z-index: 2;
 }
 </style>
