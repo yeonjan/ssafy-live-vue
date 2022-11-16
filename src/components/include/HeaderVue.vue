@@ -51,16 +51,15 @@
                 <li><a href="#" class="menu-items">회원가입</a></li>
                 <li><a href="#" class="menu-items">ID PWD 찾기</a></li>
               </div>
-              <div v-else>
+              <div v-else-if="userStore.userInfo.admin == 'F'">
                 <li><a @click="logout">로그아웃</a></li>
                 <li><a href="#">회원정보 확인</a></li>
                 <li><a href="#">관심지역 조회</a></li>
               </div>
-
-              <!--admin-->
-              <!-- <li><a href="#">로그아웃</a></li>
-              <li><a href="#">공지사항 관리</a></li> -->
-              <!--login-->
+              <div v-else>
+                <li><a @click="logout">로그아웃</a></li>
+                <li><a href="#">공지사항 관리</a></li>
+              </div>
             </ul>
           </li>
         </ul>

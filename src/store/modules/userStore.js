@@ -26,8 +26,8 @@ const userStore = {
       console.log("토큰 정보 : ", decodeedToken);
 
       //vuex에 userInfo 정보 세팅
-      const { id, name } = decodeedToken;
-      commit("SET_USER_INFO", { id, name });
+      const { id, name, admin } = decodeedToken;
+      commit("SET_USER_INFO", { id, name, admin });
     },
     logout({ commit }) {
       //헤더에서 토큰 정보 제거
