@@ -21,8 +21,8 @@ const routes = [
         component: () => import("@/views/board/BoardList"),
       },
       {
-        path: "details",
-        name: "boardwrite",
+        path: ":articleNo",
+        name: "boarddetail",
         component: () => import("@/views/board/BoardDetail"),
       },
     ],
