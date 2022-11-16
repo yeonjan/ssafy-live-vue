@@ -2,11 +2,7 @@
   <header id="header">
     <div class="container d-flex align-items-center">
       <div id="main--logo">
-        <img
-          src="@/assets/img/mainLogo.png"
-          alt="#"
-          style="width: 75px; height: 75px"
-        />
+        <img src="@/assets/img/mainLogo.png" alt="#" style="width: 75px; height: 75px" />
       </div>
       <h1 class="logo me-auto"><a href="#"></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
@@ -15,9 +11,7 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li>
-            <router-link class="nav-link scrollto active" to="/"
-              >Home</router-link
-            >
+            <router-link class="nav-link scrollto active" to="/">Home</router-link>
           </li>
           <li><a class="nav-link scrollto" href="#">아파트 매매 정보</a></li>
           <li><a class="nav-link scrollto" href="#">소개</a></li>
@@ -47,22 +41,18 @@
             </v-menu>
           </li> -->
           <li class="dropdown">
-            <a href="#" class="getstarted scrollto">
-              <span>Log In</span><i class="bi bi-chevron-down"></i>
-            </a>
+            <a href="#" class="getstarted scrollto"> <span>Log In</span><i class="bi bi-chevron-down"></i> </a>
 
             <ul>
               <div v-if="!userStore.userInfo.id">
                 <li>
-                  <router-link to="/users/login" class="menu-items"
-                    >로그인</router-link
-                  >
+                  <router-link to="/users/login" class="menu-items">로그인</router-link>
                 </li>
                 <li><a href="#" class="menu-items">회원가입</a></li>
                 <li><a href="#" class="menu-items">ID PWD 찾기</a></li>
               </div>
               <div v-else>
-                <li><a href="#">로그아웃</a></li>
+                <li><a @click="logout">로그아웃</a></li>
                 <li><a href="#">회원정보 확인</a></li>
                 <li><a href="#">관심지역 조회</a></li>
               </div>
@@ -95,6 +85,12 @@ export default {
   }),
   computed: {
     ...mapState(["userStore"]),
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("userStore/logout");
+      this.$router.push("/").catch(() => {}); //홈 화면 이동
+    },
   },
 };
 </script>
