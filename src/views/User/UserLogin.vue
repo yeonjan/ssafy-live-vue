@@ -4,18 +4,13 @@
       <div class="page_item">
         <div>
           <div class="row gy-4 justify-content-end">
-            <!-- <div class="col-lg-8">
-              <div calss="carousel-wrap">
-                <carousel>
-                  <img src="@/assets/img/apt/p1.jpg" alt="#" />
-                  <img src="@/assets/img/apt/p2.jpg" alt="#" />
-                  <img src="@/assets/img/apt/p3.png" alt="#" />
-                </carousel>
-              </div>
-            </div> -->
-
+            <!-- 화면 소개글 -->
+            <div class="col-lg-8 contianer-font">
+              <h1 data-aos="zoom-in-right" data-aos-delay="400" style="margin-bottom: 100px">Welcome to Live</h1>
+              <h3 data-aos="zoom-in-right" data-aos-delay="600">About us</h3>
+            </div>
             <!--로그인-->
-            <div class="col-lg-4" id="portfolio-info">
+            <div class="col-lg-4" id="portfolio-info" data-aos="fade-left">
               <div class="portfolio-info">
                 <h3>로그인</h3>
                 <form action="" method="post">
@@ -179,8 +174,17 @@ export default {
 </script>
 
 <style>
+#portfolio-details {
+  background-image: url("@/assets/img/login_main.jpg");
+  background-size: cover;
+}
+
 #portfolio-info {
   background: #ffffff;
+}
+
+.contianer-font {
+  color: #ffffff;
 }
 
 #btn-login {
