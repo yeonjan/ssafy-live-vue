@@ -6,6 +6,7 @@ const userStore = {
   state: () => ({
     userPwd: null, // 비밀번호 찾기한 pwd 정보
     token: null,
+    isUseId: null, // 아이디 중복체크 유무
     userInfo: {}, //로그인한 유저 정보
   }),
   getters: {},
@@ -19,6 +20,10 @@ const userStore = {
     SET_PWD(state, payload) {
       state.userPwd = payload.pwd;
       console.log(state.userPwd);
+    },
+    SET_IDCHECK(state, payload) {
+      state.isUseId = payload.checkid;
+      console.log(state.isUseId);
     },
   },
   actions: {
@@ -51,6 +56,16 @@ const userStore = {
       let pwd = data;
       console.log(data === "");
       commit("SET_PWD", { pwd });
+    },
+    async idCheck({ commit }, checkId) {
+      let { data } = await http.get(`/users/id/${checkId}`);
+
+      let checkid = data;
+      commit("SET_IDCHECK", { checkid });
+    },
+
+    async regist(_, registInfo) {
+      await http.post("/users/join", registInfo);
     },
   },
 };

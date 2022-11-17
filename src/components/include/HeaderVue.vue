@@ -52,7 +52,9 @@
                 <li>
                   <router-link to="/users/login" class="menu-items">로그인</router-link>
                 </li>
-                <li><a href="#" class="menu-items">회원가입</a></li>
+                <li>
+                  <router-link to="/users/regist" class="menu-items">회원가입</router-link>
+                </li>
                 <li><a href="#" class="menu-items">ID PWD 찾기</a></li>
               </div>
               <div v-else-if="userStore.userInfo.admin == 'F'">

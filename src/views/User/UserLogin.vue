@@ -6,8 +6,16 @@
           <div class="row gy-4 justify-content-end">
             <!-- 화면 소개글 -->
             <div class="col-lg-8 contianer-font">
-              <h1 data-aos="zoom-in-right" data-aos-delay="400" style="margin-bottom: 100px">Welcome to Live</h1>
-              <h3 data-aos="zoom-in-right" data-aos-delay="600">About us</h3>
+              <h1 data-aos="zoom-in-right" data-aos-delay="400" style="margin-bottom: 100px">Lorem Ipsum</h1>
+              <p data-aos="zoom-in-right" data-aos-delay="600">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                <br />Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, <br />when an
+                unknown printer took a galley of type and scrambled it to make a type<br />
+                specimen book. It has survived not only five centuries, but also the leap into<br />
+                electronic typesetting, remaining essentially unchanged. It was popularised <br />
+                in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,<br />
+                and more recently with desktop publishing
+              </p>
             </div>
             <!--로그인-->
             <div class="col-lg-4" id="portfolio-info" data-aos="fade-left">
@@ -175,6 +183,7 @@ export default {
 
 <style>
 #portfolio-details {
+  height: 800px;
   background-image: url("@/assets/img/login_main.jpg");
   background-size: cover;
 }
