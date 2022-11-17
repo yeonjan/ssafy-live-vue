@@ -47,6 +47,11 @@ const routes = [
         name: "login",
         component: () => import("@/views/User/UserLogin"),
       },
+      {
+        path: "regist",
+        name: "regist",
+        component: () => import("@/views/User/UserRegist"),
+      },
     ],
   },
 ];
