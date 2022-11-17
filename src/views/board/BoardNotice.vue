@@ -2,7 +2,7 @@
   <div>
     <v-card>
       <v-card-title>
-        게시판
+        공지사항
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details class="shrink">
         </v-text-field>
@@ -20,16 +20,6 @@
         @page-count="pageCount = $event"
         @click:row="openDetails"
       >
-        <!-- 글머리 색적용 -->
-        <!-- <template v-slot:[`item.bullet`]="{ item }">
-          <v-chip :color="getColor(item.bullet)" dark>
-            {{ item.bullet }}
-          </v-chip>
-        </template> -->
-
-        <!-- <template #[`item.subject`]="{ item }">
-          <router-link :to="`/board/${item.articleNo}`">{{ item.subject }}</router-link>
-        </template> -->
       </v-data-table>
       <div class="text-center pt-2">
         <v-pagination v-model="page" :length="pageCount"></v-pagination></div
@@ -68,17 +58,13 @@ export default {
     };
   },
   async created() {
-    let { data } = await http.get("/boards");
+    let { data } = await http.get("/boards", { params: { type: "공지사항" } });
     console.log(data);
     this.articles = data;
   },
   methods: {
-    getColor(bullet) {
-      if (bullet == "공지") return "red";
-      else return "green";
-    },
     openDetails(data) {
-      this.$router.push(`/board/${data.articleNo}`);
+      this.$router.push(`/board/detail/${data.articleNo}`);
     },
   },
 };

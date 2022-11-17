@@ -1,15 +1,13 @@
 <template>
-  <div>
+  <div class="board-container">
     <nav>
-      <router-link :to="{ name: 'BoardList' }">공지사항</router-link> |
-      <router-link :to="{ name: 'Score' }">자유 게시판</router-link>
+      <router-link to="/board/notice">공지사항</router-link> |
+      <router-link to="/board/community">자유 게시판</router-link>
+      <button type="button" class="btn btn-outline-primary btn-sm">
+        <router-link to="/board/write">글쓰기</router-link>
+      </button>
     </nav>
 
-    <!-- <ul>
-      <li><span>테스트메뉴1</span></li>
-      <li><span>테스트메뉴2</span></li>
-      <li><span>테스트메뉴3</span></li>
-    </ul> -->
     <router-view></router-view>
   </div>
 </template>
@@ -69,5 +67,9 @@ nav {
 }
 nav a.router-link-active {
   color: #393e46 !important;
+}
+
+.board-container {
+  margin: 0 100px;
 }
 </style>

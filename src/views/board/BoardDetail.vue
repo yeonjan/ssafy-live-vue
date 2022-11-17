@@ -18,6 +18,23 @@
           <i class="bi bi-clock"></i>
           <a href="#">{{ article.registerTime }}</a>
         </li>
+        <v-spacer></v-spacer>
+        <v-menu left bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on">
+              <v-icon size="25">mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item>
+              <v-list-item-title @click="articleEdit">수정하기</v-list-item-title>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-title @click="articleDelete">삭제하기</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </ul>
     </div>
 
@@ -26,24 +43,7 @@
         {{ article.content }}
       </p>
     </div>
-    <!-- End post content -->
-
-    <div class="meta-bottom">
-      <i class="bi bi-folder"></i>
-      <ul class="cats">
-        <li><a href="#">Business</a></li>
-      </ul>
-
-      <i class="bi bi-tags"></i>
-      <ul class="tags">
-        <li><a href="#">Creative</a></li>
-        <li><a href="#">Tips</a></li>
-        <li><a href="#">Marketing</a></li>
-      </ul>
-    </div>
-    <!-- End meta bottom -->
   </article>
-  <!-- End blog post -->
 </template>
 
 <script>
@@ -58,6 +58,16 @@ export default {
     let { data } = await http.get(`/boards/${this.$route.params.articleNo}`);
     this.article = data;
     console.log(this.article);
+  },
+  methods: {
+    async articleDelete() {
+      await http.delete(`/boards/${this.$route.params.articleNo}`);
+      if (this.article.bullet == "공지") this.$router.push({ name: "notice" });
+      else this.$router.push({ name: "community" });
+    },
+    async articleEdit() {
+      console.log("수정");
+    },
   },
 };
 </script>
@@ -85,6 +95,7 @@ export default {
 
 .blog-details .content {
   margin-top: 20px;
+  border-top: 1px solid rgba(34, 34, 34, 0.15);
 }
 
 .blog-details .content h3 {

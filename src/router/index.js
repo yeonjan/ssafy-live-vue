@@ -13,29 +13,30 @@ const routes = [
     path: "/board",
     name: "board",
     component: () => import("@/views/AppBoard"),
-    redirect: "/board/list",
+    redirect: "/board/notice",
     children: [
       {
-        path: "list",
-        name: "boardlist",
-        component: () => import("@/views/board/BoardList"),
+        path: "community",
+        name: "community",
+        component: () => import("@/views/board/BoardCommunity"),
       },
       {
-        path: ":articleNo",
+        path: "notice",
+        name: "notice",
+        component: () => import("@/views/board/BoardNotice"),
+      },
+      {
+        path: "detail/:articleNo",
         name: "boarddetail",
         component: () => import("@/views/board/BoardDetail"),
       },
+      {
+        path: "write",
+        name: "write",
+        component: () => import("@/views/board/BoardWrite"),
+      },
     ],
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
-  //시작
   {
     path: "/users",
     name: "users",
@@ -48,7 +49,6 @@ const routes = [
       },
     ],
   },
-  //끝
 ];
 
 const router = new VueRouter({
