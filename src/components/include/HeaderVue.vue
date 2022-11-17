@@ -64,7 +64,7 @@
               </div>
               <div v-else>
                 <li><a @click="logout">로그아웃</a></li>
-                <li><a href="#">공지사항 관리</a></li>
+                <li><router-link to="/admins/manage">회원정보 관리</router-link></li>
               </div>
             </ul>
           </li>

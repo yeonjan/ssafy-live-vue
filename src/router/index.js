@@ -54,6 +54,18 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/admins",
+    name: "admins",
+    component: () => import("@/views/AppAdmin"),
+    children: [
+      {
+        path: "manage",
+        name: "manage",
+        component: () => import("@/views/admin/AdminManage"),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
