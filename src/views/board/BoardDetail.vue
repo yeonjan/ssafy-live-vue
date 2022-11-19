@@ -28,10 +28,14 @@
 
           <v-list>
             <v-list-item>
-              <v-list-item-title @click="articleEdit">수정하기</v-list-item-title>
+              <v-list-item-title @click="articleEdit"
+                >수정하기</v-list-item-title
+              >
             </v-list-item>
             <v-list-item>
-              <v-list-item-title @click="articleDelete">삭제하기</v-list-item-title>
+              <v-list-item-title @click="articleDelete"
+                >삭제하기</v-list-item-title
+              >
             </v-list-item>
           </v-list>
         </v-menu>
@@ -39,16 +43,21 @@
     </div>
 
     <div class="content">
-      <p>
+      <Viewer v-if="article.content != null" :initialValue="article.content" />
+      <!-- <p>
         {{ article.content }}
-      </p>
+      </p> -->
     </div>
   </article>
 </template>
 
 <script>
 import http from "@/util/http";
+import { Viewer } from "@toast-ui/vue-editor";
 export default {
+  components: {
+    Viewer,
+  },
   data() {
     return {
       article: {},
@@ -57,8 +66,10 @@ export default {
   async created() {
     let { data } = await http.get(`/boards/${this.$route.params.articleNo}`);
     this.article = data;
+    this.content = "<p>dsd</p>";
     console.log(this.article);
   },
+
   methods: {
     async articleDelete() {
       await http.delete(`/boards/${this.$route.params.articleNo}`);
