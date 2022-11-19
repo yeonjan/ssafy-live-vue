@@ -1,7 +1,26 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import store from "@/store";
 Vue.use(VueRouter);
+
+const onlyAuthUser = async (to, from, next) => {
+  let accessToken = localStorage.getItem("access-token");
+  const userInfo = store.getters["userStore/getUserInfo"];
+  console.log("로그인 처리 전", userInfo, accessToken);
+
+  if (userInfo.id != null && accessToken) {
+    console.log("토큰 유효성 체크하러 가자!!!!");
+    await store.dispatch("userStore/validateToken", accessToken);
+  }
+  console.log(!userInfo.id);
+  if (accessToken == null || !userInfo.id) {
+    alert("로그인이 필요한 페이지입니다.");
+    router.push({ name: "login" });
+  } else {
+    console.log("로그인 확인");
+    next();
+  }
+};
 
 const routes = [
   {
@@ -33,6 +52,7 @@ const routes = [
       {
         path: "write",
         name: "write",
+        beforeEnter: onlyAuthUser,
         component: () => import("@/views/board/BoardWrite"),
       },
     ],
