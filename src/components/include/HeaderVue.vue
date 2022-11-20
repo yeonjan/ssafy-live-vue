@@ -15,7 +15,7 @@
           <li>
             <router-link class="nav-link scrollto active" to="/">Home</router-link>
           </li>
-          <li><a class="nav-link scrollto" href="#">아파트 매매 정보</a></li>
+          <li><router-link to="/board/notice">아파트 매매정보</router-link></li>
           <li><a class="nav-link scrollto" href="#">소개</a></li>
           <li><router-link to="/board/notice">공지사항</router-link></li>
           <li class="dropdown">
