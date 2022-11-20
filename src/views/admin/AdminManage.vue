@@ -3,7 +3,7 @@
     <v-data-table
       :headers="headers"
       :items="userInfo"
-      sort-by="manager"
+      sort-by="userId"
       class="elevation-1"
       @page-count="pageCount = $event"
       :page.sync="page"
@@ -63,6 +63,9 @@
             </v-card>
           </v-dialog>
         </v-toolbar>
+      </template>
+      <template v-slot:[`item.manager`]>
+        <v-switch color="indigo darken-3" hide-details></v-switch>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -129,12 +132,12 @@ export default {
     pageCount: 0,
     itemsPerPage: 10,
     headers: [
-      { text: "아이디", value: "userId" },
-      { text: "비밀번호", value: "userPwd" },
-      { text: "이름", value: "userName" },
-      { text: "Email", value: "emailId" },
-      { text: "관리자", value: "manager", sortable: false },
-      { text: "정보수정", value: "actions" },
+      { text: "아이디", value: "userId", sortable: false },
+      { text: "비밀번호", value: "userPwd", sortable: false },
+      { text: "이름", value: "userName", sortable: false },
+      { text: "Email", value: "email", sortable: false },
+      { text: "관리자", value: "manager" },
+      { text: "정보수정", value: "actions", sortable: false },
     ],
     userInfo: [],
     editedIndex: -1,
@@ -143,7 +146,7 @@ export default {
       user_pwd: 0,
       user_name: 0,
       email: 0,
-      manager: 0,
+      manager: false,
     },
     currentItem: {
       user_id: "",
@@ -173,8 +176,19 @@ export default {
     this.initialize();
     try {
       await this.$store.dispatch("userStore/selectAll");
-      let user = this.$store.state.userStore.userManageInfo;
-      this.userInfo = user;
+      let users = this.$store.state.userStore.userManageInfo;
+      for (let user of users) {
+        let isManage = true;
+        if (user.manager === "F") isManage = !isManage;
+        let newUser = {
+          userId: user.userId,
+          userPwd: user.userPwd,
+          userName: user.userName,
+          email: user.emailId + "@" + user.emailDomain,
+          manager: isManage,
+        };
+        this.userInfo.push(newUser);
+      }
 
       console.log(this.userInfo);
     } catch (error) {

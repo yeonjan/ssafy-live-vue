@@ -92,6 +92,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/apts",
+    name: "apts",
+    component: () => import("@/views/AppAptInfo"),
+  },
 ];
 
 const router = new VueRouter({
