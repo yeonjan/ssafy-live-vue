@@ -66,7 +66,6 @@ export default {
   async created() {
     let { data } = await http.get(`/boards/${this.$route.params.articleNo}`);
     this.article = data;
-    this.content = "<p>dsd</p>";
     console.log(this.article);
   },
 
@@ -78,6 +77,10 @@ export default {
     },
     async articleEdit() {
       console.log("수정");
+      this.$router.push({
+        name: "edit",
+        query: { articleNo: this.article.articleNo },
+      });
     },
   },
 };

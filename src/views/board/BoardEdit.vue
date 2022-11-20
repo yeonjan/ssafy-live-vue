@@ -31,8 +31,9 @@
         <div class="mb-3">
           <label for="content" class="form-label">내용 : </label>
           <Editor
+            v-if="article.content != null"
             ref="toastEditor"
-            :initialValue="editorText"
+            :initialValue="article.content"
             :options="editorOptions"
             height="500px"
             initialEditType="wysiwyg"
@@ -55,9 +56,9 @@
             type="button"
             id="btn-register"
             class="btn btn-outline-primary mb-3"
-            @click="writeArticle"
+            @click="editeArticle"
           >
-            등록
+            수정
           </button>
         </div>
       </form>
@@ -73,34 +74,32 @@ import { Editor } from "@toast-ui/vue-editor";
 export default {
   data() {
     return {
-      editorText: "내용을 입력해주세요",
+      //editorText: "내용을 입력해주세요",
       editorOptions: {
         hideModeSwitch: true,
       },
       article: {
-        bullet: "글머리",
-        subject: null,
-        content: "",
+        //content: "asd",
       },
       admin: store.getters["userStore/getUserInfo"].admin,
       userId: store.getters["userStore/getUserInfo"].id,
     };
   },
-  created() {
-    console.log(this.editorText);
+  async created() {
+    let { data } = await http.get(`/boards/${this.$route.query.articleNo}`);
+    this.article = data;
+    console.log(this.article);
   },
   components: {
     Editor,
   },
   methods: {
-    async writeArticle() {
+    async editeArticle() {
       const content = this.$refs.toastEditor.invoke("getHTML");
       if (this.article.bullet == "글머리") {
         alert("글머리를 입력해주세요");
       } else if (this.article.subject == null) {
         alert("제목을 입력해주세요");
-      } else if (content == "<p>내용을 입력해주세요</p>") {
-        alert("내용을 입력해주세요");
       } else {
         console.log(content);
         const form = new FormData();
@@ -108,6 +107,8 @@ export default {
         form.append("subject", this.article.subject);
         form.append("content", content);
         form.append("userId", this.userId);
+        form.append("articleNo", this.article.articleNo);
+        form.append("hit", this.article.hit);
 
         const inputFiles = this.$refs.files.files;
         for (var i = 0; i < inputFiles.length; i++) {
@@ -115,14 +116,14 @@ export default {
         }
 
         //form.getAll("files", "name");
-        console.log(form.getAll("files"));
-        let { data } = await http.post("/boards", form, {
+        console.log(this.article);
+        await http.put("/boards", form, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-        this.$router.push(`/board/detail/${data.articleNo}`);
-        //this.$router.go(-1);
+        //게시글 상세보기 페이지로 이동
+        this.$router.go(-1);
       }
     },
   },
