@@ -2,7 +2,9 @@
   <header id="header">
     <div class="container d-flex align-items-center">
       <div id="main--logo">
-        <img src="@/assets/img/mainLogo.png" alt="#" style="width: 75px; height: 75px" />
+        <router-link to="/">
+          <img src="@/assets/img/main--Logo.png" alt="#" style="width: 75px; height: 75px" />
+        </router-link>
       </div>
       <h1 class="logo me-auto"><a href="#"></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
@@ -16,30 +18,6 @@
           <li><a class="nav-link scrollto" href="#">아파트 매매 정보</a></li>
           <li><a class="nav-link scrollto" href="#">소개</a></li>
           <li><router-link to="/board/notice">공지사항</router-link></li>
-          <!-- <li class="dropdown">
-            <v-menu offset-y>
-              <template v-slot:activator="{ on, attrs }">
-                <a href="#" class="getstarted scrollto" v-bind="attrs" v-on="on">
-                  <span>Log In</span><i class="bi bi-chevron-down"></i>
-                </a>
-                <v-btn color="" dark v-bind="attrs" v-on="on"> Log In </v-btn>
-              </template>
-              <v-card max-width="200" tile>
-                <v-list>
-                  <v-list-item-group v-model="selectedItem" color="grey darken-4">
-                    <v-list-item v-for="(item, i) in items" :key="i">
-                      <v-list-item-icon>
-                        <v-icon v-text="item.icon"></v-icon>
-                      </v-list-item-icon>
-                      <v-list-item-content>
-                        <v-list-item-title v-text="item.title"></v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-list-item-group>
-                </v-list>
-              </v-card>
-            </v-menu>
-          </li> -->
           <li class="dropdown">
             <a href="#" class="getstarted scrollto">
               <span v-if="!userStore.userInfo.id">Log In</span>

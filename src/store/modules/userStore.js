@@ -8,6 +8,7 @@ const userStore = {
     accessToken: null,
     isUseId: null, // 아이디 중복체크 유무
     userInfo: {}, //로그인한 유저 정보
+    UserManageInfo: {}, // 관리자 회원 관리 정보
   }),
   getters: {
     getAccessToken: function (state) {
@@ -31,6 +32,10 @@ const userStore = {
     SET_IDCHECK(state, payload) {
       state.isUseId = payload.checkid;
       console.log(state.isUseId);
+    },
+    SET_USERLIST(state, payload) {
+      state.userManageInfo = payload.userManageInfo;
+      console.log(state.userManageInfo);
     },
   },
   actions: {
@@ -107,6 +112,13 @@ const userStore = {
 
     async regist(_, registInfo) {
       await http.post("/users/join", registInfo);
+    },
+
+    async selectAll({ commit }) {
+      let { data } = await http.get("/admin/manage");
+
+      let userManageInfo = data;
+      commit("SET_USERLIST", { userManageInfo });
     },
   },
 };

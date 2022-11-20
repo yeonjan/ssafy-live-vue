@@ -21,7 +21,6 @@ import "aos/dist/aos.css";
 // import "@/assets/vendor/waypoints/noframework.waypoints.js";
 // import "@/assets/vendor/php-email-form/validate.js";
 // Main JS File
-import "@/assets/js/main.js";
 
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
@@ -30,6 +29,7 @@ new Vue({
   created() {
     AOS.init();
   },
+
   router,
   store,
   vuetify,

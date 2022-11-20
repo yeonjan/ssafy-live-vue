@@ -12,7 +12,7 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-(function () {
+let mainJS = (function () {
   "use strict";
 
   /**
@@ -291,3 +291,5 @@ import "aos/dist/aos.css";
   //     });
   //   }
 })();
+
+export default mainJS;

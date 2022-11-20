@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-footer padless>
     <!-- ======= Footer ======= -->
     <footer id="footer">
       <div class="container footer-bottom clearfix">
@@ -24,7 +24,7 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"
       ><i class="bi bi-arrow-up-short"></i
     ></a> -->
-  </div>
+  </v-footer>
 </template>
 
 <script>
