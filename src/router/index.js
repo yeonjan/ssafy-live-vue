@@ -78,6 +78,11 @@ const routes = [
         name: "regist",
         component: () => import("@/views/User/UserRegist"),
       },
+      {
+        path: "mypage",
+        name: "mypage",
+        component: () => import("@/views/User/UserMyPage"),
+      },
     ],
   },
   {

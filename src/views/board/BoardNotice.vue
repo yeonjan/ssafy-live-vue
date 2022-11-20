@@ -4,7 +4,14 @@
       <v-card-title>
         공지사항
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details class="shrink">
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+          class="shrink"
+        >
         </v-text-field>
       </v-card-title>
 
@@ -15,6 +22,8 @@
         :page.sync="page"
         :items-per-page="itemsPerPage"
         :search="search"
+        :sort-by="['registerTime']"
+        :sort-desc="['true']"
         hide-default-footer
         class="elevation-1"
         @page-count="pageCount = $event"

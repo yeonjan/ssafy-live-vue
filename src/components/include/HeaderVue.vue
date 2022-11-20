@@ -21,7 +21,7 @@
               >Home</router-link
             >
           </li>
-          <li><router-link to="/board/notice">아파트 매매정보</router-link></li>
+          <li><a class="nav-link scrollto" href="#">아파트 매매 정보</a></li>
           <li><a class="nav-link scrollto" href="#">소개</a></li>
           <li><router-link to="/board/notice">공지사항</router-link></li>
           <li class="dropdown">
@@ -47,7 +47,9 @@
               </div>
               <div v-else-if="!userStore.userInfo.admin">
                 <li><a @click="logout">로그아웃</a></li>
-                <li><a href="#">회원정보 확인</a></li>
+                <li>
+                  <router-link to="/users/mypage">회원정보 확인</router-link>
+                </li>
                 <li><a href="#">관심지역 조회</a></li>
               </div>
               <div v-else>

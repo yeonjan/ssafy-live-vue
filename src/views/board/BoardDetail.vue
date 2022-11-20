@@ -145,6 +145,7 @@ export default {
 
 .blog-details .content {
   padding-top: 20px;
+  margin-top: 10px;
   margin-bottom: 50px;
   border-top: 1px solid rgba(34, 34, 34, 0.15);
 }
