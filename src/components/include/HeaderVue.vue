@@ -3,7 +3,11 @@
     <div class="container d-flex align-items-center">
       <div id="main--logo">
         <router-link to="/">
-          <img src="@/assets/img/main--Logo.png" alt="#" style="width: 75px; height: 75px" />
+          <img
+            src="@/assets/img/main--Logo.png"
+            alt="#"
+            style="width: 75px; height: 75px"
+          />
         </router-link>
       </div>
       <h1 class="logo me-auto"><a href="#"></a></h1>
@@ -13,7 +17,9 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li>
-            <router-link class="nav-link scrollto active" to="/">Home</router-link>
+            <router-link class="nav-link scrollto active" to="/"
+              >Home</router-link
+            >
           </li>
           <li><a class="nav-link scrollto" href="#">아파트 매매 정보</a></li>
           <li><a class="nav-link scrollto" href="#">소개</a></li>
@@ -28,21 +34,27 @@
             <ul>
               <div v-if="!userStore.userInfo.id">
                 <li>
-                  <router-link to="/users/login" class="menu-items">로그인</router-link>
+                  <router-link to="/users/login" class="menu-items"
+                    >로그인</router-link
+                  >
                 </li>
                 <li>
-                  <router-link to="/users/regist" class="menu-items">회원가입</router-link>
+                  <router-link to="/users/regist" class="menu-items"
+                    >회원가입</router-link
+                  >
                 </li>
                 <li><a href="#" class="menu-items">ID PWD 찾기</a></li>
               </div>
-              <div v-else-if="userStore.userInfo.admin == 'F'">
+              <div v-else-if="!userStore.userInfo.admin">
                 <li><a @click="logout">로그아웃</a></li>
                 <li><a href="#">회원정보 확인</a></li>
                 <li><a href="#">관심지역 조회</a></li>
               </div>
               <div v-else>
                 <li><a @click="logout">로그아웃</a></li>
-                <li><router-link to="/admins/manage">회원정보 관리</router-link></li>
+                <li>
+                  <router-link to="/admins/manage">회원정보 관리</router-link>
+                </li>
               </div>
             </ul>
           </li>

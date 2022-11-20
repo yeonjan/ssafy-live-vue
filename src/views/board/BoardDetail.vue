@@ -19,7 +19,14 @@
           <a href="#">{{ article.registerTime }}</a>
         </li>
         <v-spacer></v-spacer>
-        <v-menu left bottom>
+        <v-menu
+          left
+          bottom
+          v-if="
+            (article.bullet == '공지' && userInfo.admin) ||
+            userInfo.id == article.userId
+          "
+        >
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
               <v-icon size="25">mdi-dots-vertical</v-icon>
@@ -44,9 +51,20 @@
 
     <div class="content">
       <Viewer v-if="article.content != null" :initialValue="article.content" />
-      <!-- <p>
-        {{ article.content }}
-      </p> -->
+    </div>
+
+    <div v-if="this.fileName[0]" class="file-download">
+      <p>첨부파일</p>
+      <ul class="file-list">
+        <li
+          v-for="(name, idx) in fileName"
+          :key="idx"
+          class="d-flex align-items-center"
+        >
+          <i class="bi bi-paperclip"></i>
+          <a @click="download(name)">{{ name }}</a>
+        </li>
+      </ul>
     </div>
   </article>
 </template>
@@ -54,6 +72,8 @@
 <script>
 import http from "@/util/http";
 import { Viewer } from "@toast-ui/vue-editor";
+import store from "@/store";
+
 export default {
   components: {
     Viewer,
@@ -61,12 +81,18 @@ export default {
   data() {
     return {
       article: {},
+      userInfo: store.getters["userStore/getUserInfo"],
+      fileName: {},
     };
   },
   async created() {
-    let { data } = await http.get(`/boards/${this.$route.params.articleNo}`);
-    this.article = data;
-    console.log(this.article);
+    let res1 = await http.get(`/boards/${this.$route.params.articleNo}`);
+    this.article = res1.data;
+
+    let res2 = await http.get(`/files/${this.$route.params.articleNo}`);
+    this.fileName = res2.data;
+
+    console.log(this.fileName[0]);
   },
 
   methods: {
@@ -81,6 +107,16 @@ export default {
         name: "edit",
         query: { articleNo: this.article.articleNo },
       });
+    },
+    async download(name) {
+      let { data } = await http.get(`/files`, {
+        params: { articleNo: this.article.articleNo, fileName: name },
+        responseType: "blob",
+      });
+      console.log(data);
+
+      const FileDownload = require("js-file-download");
+      FileDownload(data, name);
     },
   },
 };
@@ -108,7 +144,8 @@ export default {
 }
 
 .blog-details .content {
-  margin-top: 20px;
+  padding-top: 20px;
+  margin-bottom: 50px;
   border-top: 1px solid rgba(34, 34, 34, 0.15);
 }
 
@@ -150,56 +187,27 @@ export default {
   line-height: 1;
 }
 
-.blog-details .meta-bottom {
+.blog-details .file-download {
   padding-top: 10px;
   border-top: 1px solid rgba(34, 34, 34, 0.15);
 }
-
-.blog-details .meta-bottom i {
-  color: #555555;
-  display: inline;
-}
-
-.blog-details .meta-bottom a {
-  color: rgba(34, 34, 34, 0.8);
-  transition: 0.3s;
-}
-
-.blog-details .meta-bottom a:hover {
-  color: var(--color-primary);
-}
-
-.blog-details .meta-bottom .cats {
-  list-style: none;
-  display: inline;
-  padding: 0 20px 0 0;
-  font-size: 14px;
-}
-
-.blog-details .meta-bottom .cats li {
-  display: inline-block;
-}
-
-.blog-details .meta-bottom .tags {
-  list-style: none;
-  display: inline;
-  padding: 0;
-  font-size: 14px;
-}
-
-.blog-details .meta-bottom .tags li {
-  display: inline-block;
-}
-
-.blog-details .meta-bottom .tags li + li::before {
-  padding-right: 6px;
-  color: var(--color-default);
-  content: ",";
-}
-.blog-details .meta-bottom .share {
+.blog-details .file-download p {
   font-size: 16px;
 }
-.blog-details .meta-bottom .share i {
-  padding-left: 5px;
+
+.blog-details .file-download ul {
+  padding: 10px 7px 10px 7px;
+  list-style-type: none;
+  font-size: 14px;
+  background-color: #eeeeee3d;
+  color: #777f88;
+  border-radius: 3px 3px 3px 3px;
+  margin-bottom: 0;
+}
+.blog-details .file-download i {
+  font-size: 20px;
+  margin-right: 3px;
+  line-height: 0;
+  color: var(--color-primary);
 }
 </style>
