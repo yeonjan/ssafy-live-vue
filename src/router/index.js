@@ -55,6 +55,12 @@ const routes = [
         beforeEnter: onlyAuthUser,
         component: () => import("@/views/board/BoardWrite"),
       },
+      {
+        path: "edit",
+        name: "edit",
+        //beforeEnter: onlyAuthUser,
+        component: () => import("@/views/board/BoardEdit"),
+      },
     ],
   },
   {
