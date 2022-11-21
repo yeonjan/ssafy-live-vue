@@ -3,11 +3,7 @@
     <div class="container d-flex align-items-center">
       <div id="main--logo">
         <router-link to="/">
-          <img
-            src="@/assets/img/main--Logo.png"
-            alt="#"
-            style="width: 75px; height: 75px"
-          />
+          <img src="@/assets/img/main--Logo.png" alt="#" style="width: 75px; height: 75px" />
         </router-link>
       </div>
       <h1 class="logo me-auto"><a href="#"></a></h1>
@@ -17,11 +13,9 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li>
-            <router-link class="nav-link scrollto active" to="/"
-              >Home</router-link
-            >
+            <router-link class="nav-link scrollto active" to="/">Home</router-link>
           </li>
-          <li><a class="nav-link scrollto" href="#">아파트 매매 정보</a></li>
+          <li><router-link to="/apts">아파트 매매정보</router-link></li>
           <li><a class="nav-link scrollto" href="#">소개</a></li>
           <li><router-link to="/board/notice">공지사항</router-link></li>
           <li class="dropdown">
@@ -34,14 +28,10 @@
             <ul>
               <div v-if="!userStore.userInfo.id">
                 <li>
-                  <router-link to="/users/login" class="menu-items"
-                    >로그인</router-link
-                  >
+                  <router-link to="/users/login" class="menu-items">로그인</router-link>
                 </li>
                 <li>
-                  <router-link to="/users/regist" class="menu-items"
-                    >회원가입</router-link
-                  >
+                  <router-link to="/users/regist" class="menu-items">회원가입</router-link>
                 </li>
                 <li><a href="#" class="menu-items">ID PWD 찾기</a></li>
               </div>

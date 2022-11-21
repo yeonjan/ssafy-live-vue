@@ -1,5 +1,5 @@
 <template>
-  <div class="main--container">
+  <div class="main-container-vue">
     <hero-section-vue />
     <client-section-vue />
     <about-us-vue />

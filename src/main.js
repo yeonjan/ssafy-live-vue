@@ -13,6 +13,8 @@ import vuetify from "./plugins/vuetify";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+// dotenv import
+
 // Vendor JS 관련 import
 // import "@/assets/vendor/aos/aos.js";
 // import "@/assets/vendor/glightbox/js/glightbox.min.js";

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import userStore from "@/store/modules/userStore.js";
+import aptStore from "@/store/modules/aptStore.js";
 import { createVuexPersistedState } from "vue-persistedstate";
 
 Vue.use(Vuex);
@@ -11,5 +12,8 @@ export default new Vuex.Store({
       Storage: window.localStorage,
     }),
   ],
-  modules: { userStore },
+  modules: {
+    userStore,
+    aptStore,
+  },
 });

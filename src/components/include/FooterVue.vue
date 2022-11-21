@@ -36,9 +36,9 @@ export default {
 
 <style scoped>
 #footer {
-  /* position: relative; */
+  position: relative;
   width: 100%;
-  height: 97px;
+  /* height: 97px; */
   display: flex;
   background: #222831 !important;
   align-items: center;
