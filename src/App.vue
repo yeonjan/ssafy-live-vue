@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <header-vue></header-vue>
-    <router-view></router-view>
+    <div id="main--container">
+      <router-view></router-view>
+    </div>
     <footer-vue></footer-vue>
   </v-app>
 </template>
@@ -25,4 +27,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#main--container {
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 97px;
+}
+</style>

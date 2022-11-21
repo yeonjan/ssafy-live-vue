@@ -2,9 +2,9 @@
   <div class="main--container">
     <hero-section-vue />
     <client-section-vue />
-    <about-us-vue/>
-    <service-section-vue/>
-    <cta-section-vue/>
+    <about-us-vue />
+    <service-section-vue />
+    <!-- <cta-section-vue/> -->
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import ServiceSectionVue from "@/components/main/ServiceSectionVue";
 import HeroSectionVue from "@/components/main/HeroSectionVue";
 import ClientSectionVue from "@/components/main/ClientSectionVue";
 import AboutUsVue from "@/components/main/AboutUsVue";
-import CtaSectionVue from "@/components/main/CtaSectionVue";
+// import CtaSectionVue from "@/components/main/CtaSectionVue";
 
 export default {
   components: {
@@ -21,7 +21,7 @@ export default {
     HeroSectionVue,
     ClientSectionVue,
     AboutUsVue,
-    CtaSectionVue,
+    // CtaSectionVue,
   },
 };
 </script>
