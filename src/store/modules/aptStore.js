@@ -14,6 +14,7 @@ const aptStore = {
   },
   actions: {
     async sendRequest({ commit }, sendInfo) {
+      console.log("sendRequest 실행");
       let { data } = await http.get(`/dongcodes/${sendInfo.action}?regcode=${sendInfo.regcode}`);
 
       let optionInfo = data;

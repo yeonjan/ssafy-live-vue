@@ -73,13 +73,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
 import store from "@/store";
 
 export default {
-  methods: {
-    ...mapActions("aptStore", ["sendRequest"]),
-  },
   mounted() {
     let date = new Date();
     window.onload = function () {
@@ -94,6 +90,18 @@ export default {
       // 브라우저가 열리면 시도정보 얻기.
       sendRequest("sido", "*00000000", "sido");
     };
+
+    document.querySelector("#year").addEventListener("change", function () {
+      let month = date.getMonth() + 1;
+      let monthEl = document.querySelector("#month");
+      let monthOpt = `<option value="">매매월선택</option>`;
+      let yearSel = document.querySelector("#year");
+      let m = yearSel[yearSel.selectedIndex].value == date.getFullYear() ? month : 13;
+      for (let i = 1; i < m; i++) {
+        monthOpt += `<option value="${i < 10 ? "0" + i : i}">${i}월</option>`;
+      }
+      monthEl.innerHTML = monthOpt;
+    });
 
     // 시도가 바뀌면 구군정보 얻기.
     document.querySelector("#sido").addEventListener("change", function () {
@@ -115,16 +123,21 @@ export default {
         initOption("dong");
       }
     });
+
     async function sendRequest(selid, regcode, action) {
+      console.log("sendRequest 실행");
       let optionInfo = {
         selid: selid,
         regcode: regcode,
         action: action,
       };
-      await this.sendRequest(optionInfo);
+      console.log(store);
+      await store.dispatch("aptStore/sendRequest", optionInfo);
+
       let responseInfo = store.state.aptStore.optionInfo;
       addOption(selid, responseInfo);
     }
+
     function addOption(selid, data) {
       let opt = ``;
       initOption(selid);
