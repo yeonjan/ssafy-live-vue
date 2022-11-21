@@ -1065,10 +1065,7 @@ section {
   position: relative;
 }
 
-.portfolio-details
-  .portfolio-details-slider
-  .swiper-pagination
-  .swiper-pagination-bullet {
+.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   background-color: #fff;
@@ -1076,10 +1073,7 @@ section {
   border: 1px solid #47b2e4;
 }
 
-.portfolio-details
-  .portfolio-details-slider
-  .swiper-pagination
-  .swiper-pagination-bullet-active {
+.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
   background-color: #47b2e4;
 }
 
@@ -1093,8 +1087,8 @@ section {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
+  padding-bottom: 25px;
+  /* border-bottom: 1px solid #eee; */
 }
 
 .portfolio-details .portfolio-info ul {
@@ -1872,6 +1866,6 @@ section {
   display: inline-block;
   width: 250px;
   margin: 10px 0;
-  font-size: 20px;
+  font-size: 18px;
   /* border: 1px solid #000; */
 }
