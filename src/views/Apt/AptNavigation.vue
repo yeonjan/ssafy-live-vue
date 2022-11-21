@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <div style="height: 70px"></div>
-
+  <div class="map-nav-container">
     <div class="row col-md-12 justify-content-center mb-2">
       <div class="form-group col-md-2">
         <select class="form-select bg-secondary text-light" id="sido">
@@ -32,11 +30,10 @@
       </div>
 
       <div class="form-group col-md-2">
-        <button type="button" id="list-btn" class="btn btn-outline-primary">아파트매매정보가져오기</button>
+        <button type="button" id="list-btn" class="btn btn-outline-primary">검색</button>
       </div>
     </div>
-
-    <div class="map_main_container" style="display: none">
+    <!-- <div class="map_main_container" style="display: none">
       <div style="height: 70px"></div>
 
       <div class="alert alert-primary mt-3"><strong>국토교통부</strong> 지역별 아파트매매 거래 정보</div>
@@ -46,11 +43,8 @@
           <button type="button" id="btn-list" class="btn btn-outline-danger">아파트 정보</button>
         </div>
       </div>
-
-      <div id="map" style="width: 100%; height: 500px"></div>
-    </div>
-
-    <table class="table table-hover text-center" style="display: none">
+    </div> -->
+    <!-- <table class="table table-hover text-center" style="display: none">
       <tr>
         <th>즐겨찾기</th>
 
@@ -68,7 +62,7 @@
       </tr>
 
       <tbody id="aptlist"></tbody>
-    </table>
+    </table> -->
   </div>
 </template>
 
@@ -172,4 +166,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.map-nav-container {
+  margin: 0px;
+}
+
+.v-application .mb-2 {
+  margin: 0px !important;
+  padding: 0px;
+}
+</style>
