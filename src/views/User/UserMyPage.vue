@@ -9,7 +9,7 @@
         <h2>Profile</h2>
       </div>
     </section>
-    <section id="portfolio-details" class="portfolio-details">
+    <section id="portfolio-details-personal" class="portfolio-details">
       <div class="container">
         <div class="page_item">
           <div>
@@ -21,41 +21,25 @@
                   <form action="">
                     <div>
                       <strong>아이디</strong>
-                      <label
-                        for="id-verification"
-                        id="profile-id"
-                        class="profile-item"
-                        >{{ userInfo.userId }}</label
-                      >
+                      <label for="id-verification" id="profile-id" class="profile-item">{{ userInfo.userId }}</label>
                     </div>
                     <div>
                       <strong>이름</strong>
-                      <label
-                        for="id-verification"
-                        id="profile-name"
-                        class="profile-item"
-                        >{{ userInfo.userName }}</label
-                      >
+                      <label for="id-verification" id="profile-name" class="profile-item">{{
+                        userInfo.userName
+                      }}</label>
                     </div>
                     <div>
                       <strong>email</strong>
-                      <label
-                        for="id-verification"
-                        id="profile-email"
-                        class="profile-item"
-                        >{{ userInfo.emailId }}@{{
-                          userInfo.emailDomain
-                        }}</label
+                      <label for="id-verification" id="profile-email" class="profile-item"
+                        >{{ userInfo.emailId }}@{{ userInfo.emailDomain }}</label
                       >
                     </div>
                     <div>
                       <strong>가입일</strong>
-                      <label
-                        for="id-verification"
-                        id="profile-joinDate"
-                        class="profile-item"
-                        >{{ userInfo.joinDate }}</label
-                      >
+                      <label for="id-verification" id="profile-joinDate" class="profile-item">{{
+                        userInfo.joinDate
+                      }}</label>
                     </div>
                     <button
                       type="button"
@@ -66,13 +50,7 @@
                     >
                       회원정보 수정
                     </button>
-                    <button
-                      type="button"
-                      onclick="deleteUser()"
-                      class="btn btn-secondary"
-                      id="btn-delete"
-                      @click="deleteAccount"
-                    >
+                    <button type="button" class="btn btn-secondary" id="btn-delete" @click="deleteAccount">
                       회원탈퇴
                     </button>
                   </form>
@@ -110,34 +88,9 @@ export default {
 
   methods: {
     async deleteAccount() {
-      //   let check = await checkLogin();
-      //   console.log("check " + check);
-      //   if (!check) this.$router.push({ name: "login" });
       if (confirm("정말 탈퇴하시겠습니까?")) {
-        http.delete(`/users/${this.userInfo.userId}`);
-        // const url = `/member/delete`;
-        // const headers = {
-        //   "Content-Type": "application/json",
-        //   token: state.token,
-        // };
-        // const body = {
-        //   password: state.pw,
-        // };
-        // const response = await axios.delete(url, {
-        //   headers: headers,
-        //   data: body,
-        // });
-        // console.log(response.data);
-        // if (response.data.status === 200) {
-        //   sessionStorage.removeItem("TOKEN");
-        //   alert("회원탈퇴 되었습니다.");
-        //   // 1. 주소창만 바뀜
-        //   router.push({ name: "Home" });
-        //   // 2. 메뉴활성화
-        //   store.commit("setMenu", "/");
-        //   // 3. 로그인상태
-        //   store.commit("setLogged", false);
-        // }
+        await this.$store.dispatch("userStore/deleteAccount");
+        this.$router.push("/");
       }
     },
   },
