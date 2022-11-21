@@ -78,8 +78,7 @@ const userStore = {
       }
     },
     async tokenRegeneration({ commit, state }) {
-      http.defaults.headers["refresh-token"] =
-        localStorage.getItem("refresh-token");
+      http.defaults.headers["refresh-token"] = localStorage.getItem("refresh-token");
       try {
         let { data } = await http.post("/users/validate/refresh", {
           userId: state.userInfo.id,
@@ -119,6 +118,16 @@ const userStore = {
 
       let userManageInfo = data;
       commit("SET_USERLIST", { userManageInfo });
+    },
+    async deleteAccount({ state, dispatch }) {
+      try {
+        await http.delete(`/users/${state.userInfo.id}`);
+        alert("회원탈퇴 되었습니다.");
+
+        await dispatch("logout");
+      } catch (error) {
+        alert("회원탈퇴 실패");
+      }
     },
   },
 };

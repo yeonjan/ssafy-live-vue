@@ -4,14 +4,7 @@
       <v-card-title>
         공지사항
         <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-          class="shrink"
-        >
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details class="shrink">
         </v-text-field>
       </v-card-title>
 

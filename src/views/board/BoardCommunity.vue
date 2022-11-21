@@ -4,14 +4,7 @@
       <v-card-title>
         자유 게시판
         <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-          class="shrink"
-        >
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details class="shrink">
         </v-text-field>
       </v-card-title>
 
@@ -24,9 +17,11 @@
         :search="search"
         :sort-by="['registerTime']"
         :sort-desc="['true']"
+        hide-default-footer
+        class="elevation-1"
+        @page-count="pageCount = $event"
+        @click:row="openDetails"
       >
-        hide-default-footer class="elevation-1" @page-count="pageCount = $event"
-        @click:row="openDetails" >
       </v-data-table>
       <div class="text-center pt-2">
         <v-pagination v-model="page" :length="pageCount"></v-pagination></div

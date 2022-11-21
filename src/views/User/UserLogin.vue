@@ -155,7 +155,7 @@ export default {
         await this.$store.dispatch("userStore/login", this.loginInfo);
         this.$router.push("/");
       } catch (error) {
-        alert("로그인 실패");
+        alert("로그인에 실패하였습니다. 아이디 또는 비밀번호를 확인해주세요.");
       }
     },
 
@@ -181,7 +181,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #portfolio-details {
   height: 800px;
   background-image: url("@/assets/img/login_main.jpg");
