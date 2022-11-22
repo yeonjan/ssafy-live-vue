@@ -1,35 +1,50 @@
 <template>
   <div id="board-list">
     <div>
-      <v-btn color="#FFD369" elevation="1"> <router-link to="/board/write">글쓰기</router-link></v-btn>
-    </div>
-
-    <v-card>
-      <v-card-title>
-        공지사항
-        <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details class="shrink">
-        </v-text-field>
-      </v-card-title>
-
-      <v-data-table
-        dense
-        :headers="headers"
-        :items="articles"
-        :page.sync="page"
-        :items-per-page="itemsPerPage"
-        :search="search"
-        :sort-by="['registerTime']"
-        :sort-desc="['true']"
-        hide-default-footer
-        class="elevation-1"
-        @page-count="pageCount = $event"
-        @click:row="openDetails"
+      <v-btn color="#FFD369" elevation="1">
+        <router-link to="/board/write">글쓰기</router-link></v-btn
       >
-      </v-data-table>
-      <div class="text-center pt-2">
-        <v-pagination color="#393E46" v-model="page" :length="pageCount"></v-pagination></div
-    ></v-card>
+    </div>
+    <div>
+      <v-card>
+        <v-card-title>
+          공지사항
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+            class="shrink"
+          >
+          </v-text-field>
+        </v-card-title>
+
+        <v-data-table
+          dense
+          :headers="headers"
+          :items="articles"
+          :page.sync="page"
+          :items-per-page="itemsPerPage"
+          :search="search"
+          :sort-by="['registerTime']"
+          :sort-desc="['true']"
+          hide-default-footer
+          class="elevation-1"
+          @page-count="pageCount = $event"
+          @click:row="openDetails"
+        >
+        </v-data-table>
+      </v-card>
+    </div>
+    <div class="text-center page">
+      <v-pagination
+        color="#393E46"
+        v-model="page"
+        :length="pageCount"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -94,5 +109,9 @@ a {
   font-weight: 600;
 
   /* color: #393e46 !important; */
+}
+
+.page {
+  margin: 20px 0 0 0;
 }
 </style>

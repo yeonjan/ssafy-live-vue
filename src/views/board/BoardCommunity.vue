@@ -1,7 +1,9 @@
 <template>
   <div id="board-list">
     <div>
-      <v-btn color="#FFD369" elevation="1"> <router-link to="/board/write">글쓰기</router-link></v-btn>
+      <v-btn color="#FFD369" elevation="1">
+        <router-link to="/board/write">글쓰기</router-link></v-btn
+      >
     </div>
     <div>
       <v-card>
@@ -36,8 +38,12 @@
         </v-data-table>
       </v-card>
     </div>
-    <div class="text-center">
-      <v-pagination color="#393E46" v-model="page" :length="pageCount"></v-pagination>
+    <div class="text-center page">
+      <v-pagination
+        color="#393E46"
+        v-model="page"
+        :length="pageCount"
+      ></v-pagination>
     </div>
   </div>
 </template>
@@ -103,5 +109,8 @@ a {
   font-weight: 600;
 
   /* color: #393e46 !important; */
+}
+.page {
+  margin: 20px 0 0 0;
 }
 </style>

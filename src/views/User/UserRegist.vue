@@ -1,110 +1,157 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-10 col-md-10 col-sm-12">
-        <form id="form-join" method="POST" action="">
-          <div class="mb-3">
-            <label for="userid" class="form-label">아이디 : </label>
-            <input
-              type="text"
-              class="form-control"
-              id="userid"
-              v-model="registInfo.userId"
-              @keyup="checkId()"
-              name="userId"
-              placeholder="아이디..."
-            />
-          </div>
-          <div
-            :class="{
-              'mb-3 text-dark': isUseId == 1,
-              'mb-3 text-primary': isUseId == 2,
-              'mb-3 text-danger': isUseId == 3,
-            }"
-          >
-            {{ idcheck_result }}
-          </div>
-          <div class="mb-3">
-            <label for="userpwd" class="form-label">비밀번호 : </label>
-            <input
-              type="password"
-              class="form-control"
-              id="userpwd"
-              v-model="registInfo.userPwd"
-              name="userPwd"
-              placeholder="비밀번호..."
-            />
-          </div>
-          <div class="mb-3">
-            <label for="pwdcheck" class="form-label">비밀번호확인 : </label>
-            <input
-              type="password"
-              class="form-control"
-              id="pwdcheck"
-              v-model="pwdcheck"
-              placeholder="비밀번호확인..."
-            />
-          </div>
-          <div class="mb-3">
-            <label for="username" class="form-label">이름 : </label>
-            <input
-              type="text"
-              class="form-control"
-              id="username"
-              v-model="registInfo.userName"
-              name="userName"
-              placeholder="이름..."
-            />
-          </div>
-          <div class="mb-3">
-            <label for="emailid" class="form-label">이메일 : </label>
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control"
-                id="emailid"
-                v-model="registInfo.emailId"
-                name="emailId"
-                placeholder="이메일아이디"
-              />
-              <span class="input-group-text">@</span>
-              <select
-                class="form-select"
-                id="emaildomain"
-                v-model="registInfo.emailDomain"
-                name="emailDomain"
-                aria-label="이메일 도메인 선택"
+  <section id="portfolio-details" class="portfolio-details">
+    <div class="container">
+      <div class="page_item">
+        <div>
+          <div class="row gy-4 justify-content-end">
+            <!-- 화면 소개글 -->
+            <div class="col-lg-8 contianer-font">
+              <h1
+                data-aos="zoom-in-right"
+                data-aos-delay="400"
+                style="margin-bottom: 100px"
               >
-                <option selected>선택</option>
-                <option value="ssafy.com">싸피</option>
-                <option value="google.com">구글</option>
-                <option value="naver.com">네이버</option>
-                <option value="kakao.com">카카오</option>
-              </select>
-              <v-btn @click="emailCheck" elevation="1" style="margin-left: 10px">인증</v-btn>
+                Lorem Ipsum
+              </h1>
+              <p data-aos="zoom-in-right" data-aos-delay="600">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry.
+                <br />Lorem Ipsum has been the industry's standard dummy text
+                ever since the 1500s, <br />when an unknown printer took a
+                galley of type and scrambled it to make a type<br />
+                specimen book. It has survived not only five centuries, but also
+                the leap into<br />
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised <br />
+                in the 1960s with the release of Letraset sheets containing
+                Lorem Ipsum passages,<br />
+                and more recently with desktop publishing
+              </p>
+            </div>
+            <!--회원가입-->
+            <div class="col-lg-4" id="portfolio-info" data-aos="fade-left">
+              <div class="portfolio-info">
+                <h3>회원가입</h3>
+                <form action="" method="post">
+                  <div class="mb-3 mt-3">
+                    <label for="userid" class="form-label">아이디</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="userid"
+                      name="userid"
+                      v-model="registInfo.userId"
+                      required
+                    />
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">필수 항목입니다.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="userpwd" class="form-label">비밀번호</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="userpwd"
+                      name="userpwd"
+                      v-model="registInfo.userPwd"
+                      required
+                    />
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">필수 항목입니다.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="userpwd" class="form-label"
+                      >비밀번호 확인</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="pwdcheck"
+                      name="pwdcheck"
+                      v-model="pwdcheck"
+                      required
+                    />
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">필수 항목입니다.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="userpwd" class="form-label">이름</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="username"
+                      name="username"
+                      v-model="registInfo.userName"
+                      required
+                    />
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">필수 항목입니다.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="emailid" class="form-label">이메일</label>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="emailid"
+                        v-model="registInfo.emailId"
+                        name="emailId"
+                        placeholder="이메일아이디"
+                        required
+                      />
+                      <span class="input-group-text">@</span>
+                      <select
+                        class="form-select"
+                        id="emaildomain"
+                        v-model="registInfo.emailDomain"
+                        name="emailDomain"
+                        aria-label="이메일 도메인 선택"
+                      >
+                        <option selected>선택</option>
+                        <option value="ssafy.com">싸피</option>
+                        <option value="google.com">구글</option>
+                        <option value="naver.com">네이버</option>
+                        <option value="kakao.com">카카오</option>
+                      </select>
+                      <v-btn
+                        @click="emailCheck"
+                        elevation="1"
+                        style="margin-left: 10px"
+                        >인증</v-btn
+                      >
+                    </div>
+
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">필수 항목입니다.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">인증 번호 : </label>
+                    <input
+                      v-model="inputNum"
+                      class="form-control mail-check-input"
+                      placeholder="인증번호 6자리를 입력해주세요"
+                      :disabled="canInput"
+                      maxlength="6"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    id="btn-join"
+                    class="btn btn-dark"
+                    @click="regist"
+                  >
+                    회원가입
+                  </button>
+                  <div></div>
+                </form>
+              </div>
             </div>
           </div>
-          <div class="mb-3">
-            <label for="" class="form-label">인증 번호 : </label>
-            <input
-              v-model="inputNum"
-              class="form-control mail-check-input"
-              placeholder="인증번호 6자리를 입력해주세요"
-              :disabled="canInput"
-              maxlength="6"
-            />
-          </div>
-
-          <div class="col-auto text-center">
-            <button type="button" id="btn-join" @click="regist()" class="btn btn-outline-primary mb-3">회원가입</button>
-            <button type="button" class="btn btn-outline-success mb-3">초기화</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
-
 <script>
 import http from "@/util/http";
 export default {
@@ -125,9 +172,12 @@ export default {
       let email = this.registInfo.emailId + "@" + this.registInfo.emailDomain;
 
       try {
-        let { data } = http.get(`/users/mailCheck`, { params: { email: email } });
-        this.checkNum = data;
         alert("인증번호가 전송되었습니다.");
+        let { data } = await http.get(`/users/mailCheck`, {
+          params: { email: email },
+        });
+        this.checkNum = data;
+        console.log(this.checkNum);
 
         this.canInput = false;
       } catch (error) {
@@ -154,6 +204,8 @@ export default {
     },
 
     async regist() {
+      console.log("inputNum:  ", this.inputNum);
+      console.log("checkNum:  ", this.checkNum);
       let registInfo = this.registInfo;
       if (!registInfo.userName) {
         alert("이름 입력!!");
@@ -183,4 +235,34 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#portfolio-details {
+  height: 800px;
+  background-image: url("@/assets/img/login_main.jpg");
+  background-size: cover;
+}
+
+#portfolio-info {
+  background: #ffffff;
+  margin-bottom: 10px;
+}
+
+.contianer-font {
+  color: #ffffff;
+}
+
+#btn-join {
+  display: block;
+  width: 100%;
+  margin: 20px 0 10px 0;
+  background: #393e46;
+}
+
+.v-application .error {
+  background: #ff9551;
+}
+
+.v-alert {
+  z-index: 2;
+}
+</style>
