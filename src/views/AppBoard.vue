@@ -1,11 +1,8 @@
 <template>
   <div class="board-container">
-    <nav>
+    <nav class="board-nav">
       <router-link to="/board/notice">공지사항</router-link> |
       <router-link to="/board/community">자유 게시판</router-link>
-      <button type="button" class="btn btn-outline-primary btn-sm">
-        <router-link to="/board/write">글쓰기</router-link>
-      </button>
     </nav>
 
     <router-view></router-view>
@@ -58,18 +55,26 @@ li:hover > span::after {
   border-bottom: 2px solid #39d9c8;
   transition: all 0.3s ease;
 }
-nav {
+.board-nav {
   width: auto;
   height: 35px;
-  margin: 30px 0px 0px 20px;
+  margin: 30px 0 2% 3px;
   padding: 0 0px 0px 0px;
   font-size: 18px;
 }
-nav a.router-link-active {
-  color: #393e46 !important;
+.board-nav a {
+  text-decoration: none;
+  color: #393e46;
+  font-weight: 600;
+
+  /* color: #393e46 !important; */
 }
 
 .board-container {
-  margin: 0 100px;
+  margin: 0 18% 0px 18%;
+}
+
+a:hover {
+  color: #ffd369;
 }
 </style>

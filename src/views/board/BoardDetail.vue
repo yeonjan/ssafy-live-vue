@@ -19,14 +19,7 @@
           <a href="#">{{ article.registerTime }}</a>
         </li>
         <v-spacer></v-spacer>
-        <v-menu
-          left
-          bottom
-          v-if="
-            (article.bullet == '공지' && userInfo.admin) ||
-            userInfo.id == article.userId
-          "
-        >
+        <v-menu left bottom v-if="(article.bullet == '공지' && userInfo.admin) || userInfo.id == article.userId">
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
               <v-icon size="25">mdi-dots-vertical</v-icon>
@@ -35,14 +28,10 @@
 
           <v-list>
             <v-list-item>
-              <v-list-item-title @click="articleEdit"
-                >수정하기</v-list-item-title
-              >
+              <v-list-item-title @click="articleEdit">수정하기</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title @click="articleDelete"
-                >삭제하기</v-list-item-title
-              >
+              <v-list-item-title @click="articleDelete">삭제하기</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -56,11 +45,7 @@
     <div v-if="this.fileName[0]" class="file-download">
       <p>첨부파일</p>
       <ul class="file-list">
-        <li
-          v-for="(name, idx) in fileName"
-          :key="idx"
-          class="d-flex align-items-center"
-        >
+        <li v-for="(name, idx) in fileName" :key="idx" class="d-flex align-items-center">
           <i class="bi bi-paperclip"></i>
           <a @click="download(name)">{{ name }}</a>
         </li>
@@ -127,6 +112,8 @@ export default {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   padding: 30px;
   border-radius: 10px;
+  /* height: 80vh; */
+  margin: 5px 0 5% 0;
 }
 
 .blog-details .post-img {
@@ -148,6 +135,7 @@ export default {
   margin-top: 10px;
   margin-bottom: 50px;
   border-top: 1px solid rgba(34, 34, 34, 0.15);
+  min-height: 40vh;
 }
 
 .blog-details .content h3 {

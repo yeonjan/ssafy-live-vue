@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div id="board-list">
+    <div>
+      <v-btn color="#FFD369" elevation="1"> <router-link to="/board/write">글쓰기</router-link></v-btn>
+    </div>
+
     <v-card>
       <v-card-title>
         공지사항
@@ -24,7 +28,7 @@
       >
       </v-data-table>
       <div class="text-center pt-2">
-        <v-pagination v-model="page" :length="pageCount"></v-pagination></div
+        <v-pagination color="#393E46" v-model="page" :length="pageCount"></v-pagination></div
     ></v-card>
   </div>
 </template>
@@ -72,4 +76,23 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#board-list {
+  display: flex;
+  flex-direction: column;
+}
+.v-btn {
+  color: #393e46;
+  font-size: 14px;
+  float: right;
+  margin: 0 0 8px 0;
+}
+
+a {
+  text-decoration: none;
+  color: #393e46;
+  font-weight: 600;
+
+  /* color: #393e46 !important; */
+}
+</style>
