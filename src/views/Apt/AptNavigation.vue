@@ -56,7 +56,6 @@ export default {
       };
       await store.dispatch("aptStore/aptList", aptInfo);
       this.aptInfo = store.state.aptStore.aptInfo;
-      console.log(this.aptInfo);
     },
 
     // async searchDetailApt() {
@@ -119,7 +118,6 @@ export default {
     });
 
     async function sendRequest(selid, regcode, action) {
-      console.log("sendRequest 실행");
       let optionInfo = {
         selid: selid,
         regcode: regcode,
@@ -135,7 +133,6 @@ export default {
     function addOption(selid, data) {
       let opt = ``;
       initOption(selid);
-      console.log(data);
       switch (selid) {
         case "sido":
           opt += `<option value="">시도선택</option>`;

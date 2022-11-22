@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import store from "@/store";
+
 export default {
   data() {
     return {
@@ -25,10 +27,12 @@ export default {
   methods: {
     async searchDetailApt(item) {
       let aptDetailInfo = {
-        regcode: item.aptCode,
+        regcode: item.code,
       };
-      this.$store.commit("aptStore/SET_APTADDRESS", item.aptAddress);
-      this.$store.commit("aptStore/SET_APTDETAILNAME", item.aptName);
+      let latlng = item.latlng;
+      this.getAddr(latlng.lat, latlng.lng);
+      store.commit("aptStore/SET_APTDETAILNAME", item.text);
+      store.commit("aptStore/SET_APTLATLNG", latlng);
       await this.$store.dispatch("aptStore/aptDetailList", aptDetailInfo);
     },
 
@@ -37,10 +41,11 @@ export default {
       const coord = new kakao.maps.LatLng(lat, lng);
       let callback = function (result, status) {
         if (status === kakao.maps.services.Status.OK) {
-          console.log(result);
+          console.log(result[0].road_address.address_name);
+          store.commit("aptStore/SET_APTADDRESS", result[0].road_address.address_name);
         }
       };
-      return geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+      geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
     },
   },
   mounted() {
@@ -57,23 +62,20 @@ export default {
         //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
         this.map = new kakao.maps.Map(container, options);
       });
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&libraries=services&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
     document.head.appendChild(script);
   },
 
   computed: {
     items() {
-      let newArray = this.$store.state.aptStore.aptInfo.map((el) => {
-        let aptAddress = this.getAddr(el.lat, el.lng);
-        return { text: el.apartmentName, code: el.aptCode, address: aptAddress };
+      let newArray = store.state.aptStore.aptInfo.map((el) => {
+        return { text: el.apartmentName, code: el.aptCode, latlng: { lat: el.lat, lng: el.lng } };
       });
-      console.log(newArray);
       return newArray;
     },
   },
   beforeDestroy() {
-    console.log(this.$store);
-    this.$store.commit("aptStore/SET_APTINFO", { aptInfo: [] });
+    store.commit("aptStore/SET_APTINFO", { aptInfo: [] });
   },
 };
 </script>

@@ -7,6 +7,7 @@ const aptStore = {
     aptDetailInfo: {}, // 아파트 상세 리스트를 받아올 객체
     aptDetailName: null,
     aptAddress: {}, // 아파트 주소
+    aptLatLng: {}, // 아파트 상세 주소
     aptInfo: {}, //  아파트 리스트를 받아올 객체
   }),
   getters: {},
@@ -27,10 +28,17 @@ const aptStore = {
       state.aptDetailName = payload;
       console.log(state.aptDetailName);
     },
+    SET_APTADDRESS(state, payload) {
+      state.aptAddress = payload;
+      console.log(state.aptAddress);
+    },
+    SET_APTLATLNG(state, payload) {
+      state.aptLatLng = payload;
+      console.log(state.aptLatLng);
+    },
   },
   actions: {
     async sendRequest({ commit }, sendInfo) {
-      console.log("sendRequest 실행");
       let { data } = await http.get(`/dongcodes/${sendInfo.action}?regcode=${sendInfo.regcode}`);
 
       let optionInfo = data;
@@ -46,7 +54,7 @@ const aptStore = {
     },
 
     async aptDetailList({ commit }, regCodeInfo) {
-      console.log("aptDetailList 실행");
+      console.log(regCodeInfo);
       let { data } = await http.post("/apts/detail", regCodeInfo);
 
       let aptDetailInfo = data;
