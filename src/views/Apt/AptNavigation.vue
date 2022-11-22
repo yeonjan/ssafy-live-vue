@@ -57,20 +57,18 @@ export default {
       await store.dispatch("aptStore/aptList", aptInfo);
       this.aptInfo = store.state.aptStore.aptInfo;
       console.log(this.aptInfo);
-
-      this.searchDetailApt();
     },
 
-    async searchDetailApt() {
-      let dongSel = document.querySelector("#dong");
-      let regCodeInfo = dongSel[dongSel.selectedIndex].value;
-      let aptDetailInfo = {
-        regcode: regCodeInfo,
-      };
-      await store.dispatch("aptStore/aptDetailList", aptDetailInfo);
-      this.aptDetailInfo = store.state.aptStore.aptDetailInfo;
-      console.log(this.aptDetailInfo);
-    },
+    // async searchDetailApt() {
+    //   let dongSel = document.querySelector("#dong");
+    //   let regCodeInfo = dongSel[dongSel.selectedIndex].value;
+    //   let aptDetailInfo = {
+    //     regcode: regCodeInfo,
+    //   };
+    //   await store.dispatch("aptStore/aptDetailList", aptDetailInfo);
+    //   this.aptDetailInfo = store.state.aptStore.aptDetailInfo;
+    //   console.log(this.aptDetailInfo);
+    // },
   },
   mounted() {
     // let date = new Date();
