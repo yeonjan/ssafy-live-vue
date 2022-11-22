@@ -81,8 +81,20 @@
                 <option value="naver.com">네이버</option>
                 <option value="kakao.com">카카오</option>
               </select>
+              <v-btn @click="emailCheck" elevation="1" style="margin-left: 10px">인증</v-btn>
             </div>
           </div>
+          <div class="mb-3">
+            <label for="" class="form-label">인증 번호 : </label>
+            <input
+              v-model="inputNum"
+              class="form-control mail-check-input"
+              placeholder="인증번호 6자리를 입력해주세요"
+              :disabled="canInput"
+              maxlength="6"
+            />
+          </div>
+
           <div class="col-auto text-center">
             <button type="button" id="btn-join" @click="regist()" class="btn btn-outline-primary mb-3">회원가입</button>
             <button type="button" class="btn btn-outline-success mb-3">초기화</button>
@@ -94,6 +106,7 @@
 </template>
 
 <script>
+import http from "@/util/http";
 export default {
   data() {
     return {
@@ -101,10 +114,26 @@ export default {
       idcheck_result: "",
       pwdcheck: "",
       registInfo: {},
+      canInput: true,
+      inputNum: "",
+      checkNum: "",
     };
   },
 
   methods: {
+    async emailCheck() {
+      let email = this.registInfo.emailId + "@" + this.registInfo.emailDomain;
+
+      try {
+        let { data } = http.get(`/users/mailCheck`, { params: { email: email } });
+        this.checkNum = data;
+        alert("인증번호가 전송되었습니다.");
+
+        this.canInput = false;
+      } catch (error) {
+        alert("인증번호 전송 실패");
+      }
+    },
     async checkId() {
       let userid = this.registInfo.userid;
       if (userid.length < 6 || userid.length > 16) {
@@ -126,8 +155,6 @@ export default {
 
     async regist() {
       let registInfo = this.registInfo;
-      console.log(registInfo);
-      console.log(this.pwdcheck);
       if (!registInfo.userName) {
         alert("이름 입력!!");
         return;
@@ -140,6 +167,8 @@ export default {
       } else if (registInfo.userPwd != this.pwdcheck) {
         alert("비밀번호 확인!!");
         return;
+      } else if (String(this.checkNum) !== this.inputNum) {
+        alert("인증번호를 확인해주세요");
       } else {
         try {
           await this.$store.dispatch("userStore/regist", this.registInfo);

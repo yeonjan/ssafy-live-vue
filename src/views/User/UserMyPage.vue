@@ -12,50 +12,39 @@
     <section id="portfolio-details-personal" class="portfolio-details">
       <div class="container">
         <div class="page_item">
-          <div>
-            <!--회원 정보 확인-->
-            <div class="user-profile-container page_item">
+          <!--회원 정보 확인-->
+          <div class="user-profile-container page_item">
+            <div class="portfolio-info">
+              <h3>회원 정보 확인</h3>
+
               <div>
-                <div class="portfolio-info">
-                  <h3>회원 정보 확인</h3>
-                  <form action="">
-                    <div>
-                      <strong>아이디</strong>
-                      <label for="id-verification" id="profile-id" class="profile-item">{{ userInfo.userId }}</label>
-                    </div>
-                    <div>
-                      <strong>이름</strong>
-                      <label for="id-verification" id="profile-name" class="profile-item">{{
-                        userInfo.userName
-                      }}</label>
-                    </div>
-                    <div>
-                      <strong>email</strong>
-                      <label for="id-verification" id="profile-email" class="profile-item"
-                        >{{ userInfo.emailId }}@{{ userInfo.emailDomain }}</label
-                      >
-                    </div>
-                    <div>
-                      <strong>가입일</strong>
-                      <label for="id-verification" id="profile-joinDate" class="profile-item">{{
-                        userInfo.joinDate
-                      }}</label>
-                    </div>
-                    <button
-                      type="button"
-                      onclick="updateUser()"
-                      class="btn btn-secondary"
-                      id="btn-move-update"
-                      style="margin-right: 10px"
-                    >
-                      회원정보 수정
-                    </button>
-                    <button type="button" class="btn btn-secondary" id="btn-delete" @click="deleteAccount">
-                      회원탈퇴
-                    </button>
-                  </form>
-                </div>
+                <strong>아이디</strong>
+                <label for="id-verification" id="profile-id" class="profile-item">{{ userInfo.userId }}</label>
               </div>
+              <div>
+                <strong>이름</strong>
+                <label for="id-verification" id="profile-name" class="profile-item">{{ userInfo.userName }}</label>
+              </div>
+              <div>
+                <strong>email</strong>
+                <label for="id-verification" id="profile-email" class="profile-item"
+                  >{{ userInfo.emailId }}@{{ userInfo.emailDomain }}</label
+                >
+                <button
+                  type="button"
+                  onclick="updateUser()"
+                  class="btn btn-secondary"
+                  id="btn-update"
+                  style="margin-left: 10px"
+                >
+                  수정
+                </button>
+              </div>
+              <div>
+                <strong>가입일</strong>
+                <label for="id-verification" id="profile-joinDate" class="profile-item">{{ userInfo.joinDate }}</label>
+              </div>
+              <button type="button" class="btn btn-secondary" id="btn-delete" @click="deleteAccount">회원탈퇴</button>
             </div>
           </div>
         </div>
@@ -97,4 +86,22 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#btn-update {
+  padding: 2px 9px 3px;
+  font-size: 14px;
+  background-color: #eeeeee;
+  color: #222831;
+  border: 1px #dbd8d8 solid;
+  float: right;
+  margin: 10px 10px 0 0;
+}
+#btn-delete {
+  //margin: ;
+  float: right;
+}
+
+.portfolio-info div {
+  border-bottom: 1px #eeeeee solid;
+}
+</style>
