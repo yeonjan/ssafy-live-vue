@@ -41,7 +41,7 @@ const aptStore = {
 
     async aptDetailList({ commit }, regCodeInfo) {
       console.log("aptDetailList 실행");
-      let { data } = await http.post("/apts/", regCodeInfo);
+      let { data } = await http.post("/apts/detail", regCodeInfo);
 
       let aptDetailInfo = data;
       commit("SET_APTDETAILINFO", { aptDetailInfo });
