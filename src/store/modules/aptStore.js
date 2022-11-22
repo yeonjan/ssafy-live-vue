@@ -5,6 +5,8 @@ const aptStore = {
   state: () => ({
     optionInfo: {}, // 시구군동 옵션 리스트를 담을 객체
     aptDetailInfo: {}, // 아파트 상세 리스트를 받아올 객체
+    aptDetailName: null,
+    aptAddress: {}, // 아파트 주소
     aptInfo: {}, //  아파트 리스트를 받아올 객체
   }),
   getters: {},
@@ -20,6 +22,10 @@ const aptStore = {
     SET_APTINFO(state, payload) {
       state.aptInfo = payload.aptInfo;
       console.log(state.aptInfo);
+    },
+    SET_APTDETAILNAME(state, payload) {
+      state.aptDetailName = payload;
+      console.log(state.aptDetailName);
     },
   },
   actions: {
