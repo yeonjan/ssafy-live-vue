@@ -11,7 +11,7 @@
         v-model="article.bullet"
       >
         <option value="글머리" disabled selected>글머리</option>
-        <option v-if="this.admin == 'T'" value="공지">공지사항</option>
+        <option v-if="this.admin" value="공지">공지</option>
         <option value="일반">일반</option>
       </select>
       <div class="mb-3">
@@ -40,7 +40,13 @@
       </div>
       <div class="form-group" align="left">
         <label for="files">파일:</label>
-        <input ref="files" type="file" class="form-control border" name="files[]" multiple="multiple" />
+        <input
+          ref="files"
+          type="file"
+          class="form-control border"
+          name="files[]"
+          multiple="multiple"
+        />
       </div>
       <div class="col-auto text-center mt-3">
         <v-btn
@@ -79,6 +85,7 @@ export default {
   },
   created() {
     console.log(this.editorText);
+    console.log(this.admin);
   },
   components: {
     Editor,
