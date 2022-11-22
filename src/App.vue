@@ -29,8 +29,8 @@ export default {
 
 <style>
 #main--container {
-  height: auto;
-  min-height: 100%;
-  padding-bottom: 97px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 3;
 }
 </style>

@@ -171,6 +171,7 @@ export default {
 <style scoped>
 .map-nav-container {
   margin: 0px;
+  padding: 10px;
 }
 
 .v-application .mb-2 {

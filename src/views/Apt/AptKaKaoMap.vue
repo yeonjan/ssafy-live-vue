@@ -41,9 +41,10 @@ export default {
 
 <style scoped>
 .mapContainer {
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100vh;
+  /* flex-grow: 2; */
 }
 #map {
   width: 100%;

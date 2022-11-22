@@ -42,7 +42,7 @@ export default {
   display: flex;
   background: #222831 !important;
   align-items: center;
-  transform: translateY(-100%);
+  /* transform: translateY(-100%); */
 }
 
 #footer .credits a {

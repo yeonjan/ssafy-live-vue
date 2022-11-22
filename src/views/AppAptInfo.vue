@@ -1,7 +1,12 @@
 <template>
   <div>
     <apt-navigation />
-    <v-container id="kakaoMap-main-container">
+    <div id="map-container" class="d-flex justify-content-start">
+      <apt-side-bar />
+      <apt-ka-kao-map />
+    </div>
+
+    <!-- <v-container id="map-container" class="d-flex justify-content-start">
       <v-row no-gutters>
         <v-col cols="2" md="2" id="aptInfo-container">
           <apt-side-bar />
@@ -10,7 +15,7 @@
           <apt-ka-kao-map />
         </v-col>
       </v-row>
-    </v-container>
+    </v-container> -->
   </div>
 </template>
 
@@ -32,13 +37,8 @@ export default {
 </script>
 
 <style scoped>
-#kakaoMap-main-container {
-  margin: 0px;
-  padding: 0px;
-  width: 100%;
-  height: 100vh;
-}
 #aptInfo-container {
+  display: flex;
   border: 1px solid #eeeeee;
   height: 100vh;
 }

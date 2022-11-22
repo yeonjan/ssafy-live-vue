@@ -1,5 +1,5 @@
 <template>
-  <v-card id="aptInfoCard" class="mx-auto" max-width="100%" height="100vh" tile>
+  <v-card id="aptInfoCard" class="mx-auto" width="350px" height="100vh" tile>
     <v-list flat>
       <v-list-item-group v-model="selectedItem" color="primary">
         <v-list-item v-for="(item, i) in items" :key="i">
@@ -44,5 +44,6 @@ export default {
 <style>
 #aptInfoCard {
   overflow: auto;
+  /* flex-grow: 1; */
 }
 </style>
