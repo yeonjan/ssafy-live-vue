@@ -7,7 +7,7 @@
                     <v-icon v-text="item.icon"></v-icon>
                   </v-list-item-icon> -->
           <v-list-item-content>
-            <v-list-item-title v-text="item.text" id="aptInfo-list"></v-list-item-title>
+            <v-list-item-title v-text="item.text" id="aptInfo-list" @click="searchDetailApt(item)"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -16,19 +16,56 @@
 </template>
 
 <script>
-// import { get } from "http";
-
 export default {
   data() {
     return {
       selectedItem: null,
-      aptDetailInfo: {},
     };
   },
+  methods: {
+    async searchDetailApt(item) {
+      let aptDetailInfo = {
+        regcode: item.aptCode,
+      };
+      this.$store.commit("aptStore/SET_APTADDRESS", item.aptAddress);
+      this.$store.commit("aptStore/SET_APTDETAILNAME", item.aptName);
+      await this.$store.dispatch("aptStore/aptDetailList", aptDetailInfo);
+    },
+
+    getAddr(lat, lng) {
+      const geocoder = new kakao.maps.services.Geocoder();
+      const coord = new kakao.maps.LatLng(lat, lng);
+      let callback = function (result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+          console.log(result);
+        }
+      };
+      return geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+    },
+  },
+  mounted() {
+    const script = document.createElement("script");
+    /* global kakao */
+    script.onload = () =>
+      kakao.maps.load(() => {
+        const container = document.getElementById("map");
+        const options = {
+          center: new kakao.maps.LatLng(33.450701, 126.570667),
+          level: 4,
+        };
+        //지도 객체를 등록합니다.
+        //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
+        this.map = new kakao.maps.Map(container, options);
+      });
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
+    document.head.appendChild(script);
+  },
+
   computed: {
     items() {
       let newArray = this.$store.state.aptStore.aptInfo.map((el) => {
-        return { text: el.apartmentName };
+        let aptAddress = this.getAddr(el.lat, el.lng);
+        return { text: el.apartmentName, code: el.aptCode, address: aptAddress };
       });
       console.log(newArray);
       return newArray;
