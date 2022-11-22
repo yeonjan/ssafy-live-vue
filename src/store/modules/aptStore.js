@@ -35,7 +35,7 @@ const aptStore = {
       console.log("aptList 실행");
       let { data } = await http.post("/apts/", aptCodeInfo);
 
-      let aptInfo = data;
+      let aptInfo = data.regcodes;
       commit("SET_APTINFO", { aptInfo });
     },
 

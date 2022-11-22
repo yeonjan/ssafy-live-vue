@@ -57,6 +57,8 @@ export default {
       await store.dispatch("aptStore/aptList", aptInfo);
       this.aptInfo = store.state.aptStore.aptInfo;
       console.log(this.aptInfo);
+
+      this.searchDetailApt();
     },
 
     async searchDetailApt() {

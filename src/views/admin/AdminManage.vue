@@ -64,8 +64,8 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:[`item.manager`]>
-        <v-switch color="indigo darken-3" hide-details></v-switch>
+      <template v-slot:[`item.manager`]="{ item }">
+        <v-switch color="indigo darken-3" v-model="item.manager" hide-details></v-switch>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -202,6 +202,7 @@ export default {
     },
 
     editItem(item) {
+      console.log(item);
       this.editedIndex = this.userInfo.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;

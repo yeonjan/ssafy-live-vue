@@ -3,7 +3,9 @@
     <apt-navigation />
     <v-container id="kakaoMap-main-container">
       <v-row no-gutters>
-        <v-col cols="3" md="3" id="aptInfo-container"> </v-col>
+        <v-col cols="2" md="2" id="aptInfo-container">
+          <apt-side-bar />
+        </v-col>
         <v-col cols="9" sm="9" md="8">
           <apt-ka-kao-map />
         </v-col>
@@ -15,12 +17,16 @@
 <script>
 import AptKaKaoMap from "@/views/Apt/AptKaKaoMap";
 import AptNavigation from "@/views/Apt/AptNavigation";
+import AptSideBar from "@/views/Apt/AptSideBar";
 
 export default {
-  data: () => ({ drawer: null }),
+  data: () => ({
+    drawer: null,
+  }),
   components: {
     AptKaKaoMap,
     AptNavigation,
+    AptSideBar,
   },
 };
 </script>

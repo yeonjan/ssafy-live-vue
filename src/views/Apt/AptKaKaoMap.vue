@@ -1,26 +1,16 @@
 <template>
   <div class="mapContainer">
-    <!-- <apt-navigation></apt-navigation> -->
     <div id="map"></div>
   </div>
 </template>
 
 <script>
-// import AptNavigation from "@/views/Apt/AptNavigation";
-
 export default {
-  components: {
-    // AptNavigation,
-  },
   data() {
     return {
       map: null,
     };
   },
-  created() {
-    // console.log(process.env.VUE_APP_KAKAOMAP_KEY);
-  },
-
   methods: {
     initMap() {
       const container = document.getElementById("map");
@@ -44,6 +34,8 @@ export default {
       document.head.appendChild(script);
     }
   },
+
+  computed: {},
 };
 </script>
 
