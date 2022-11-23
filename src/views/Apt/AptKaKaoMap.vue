@@ -2,7 +2,7 @@
   <div id="map-container" class="d-flex justify-content-start">
     <!-- AptSideBar -->
     <template>
-      <v-card id="aptInfoCard" class="mx-auto" width="350px" height="100vh" tile>
+      <v-card id="aptInfoCard" class="mx-auto mt-0" width="350px" height="100vh" tile>
         <v-list flat>
           <v-list-item-group v-model="selectedItem" color="primary">
             <v-list-item v-for="(item, i) in items" :key="i">
@@ -23,15 +23,15 @@
     </template>
 
     <!-- AptDetailSideBar -->
-    <template>
+    <template v-if="isView">
       <v-card id="apt-detail-info" class="mx-auto" width="500px" height="100vh" tile>
         <template>
-          <v-card :loading="loading" class="mx-auto my-12" width="400px">
+          <v-card :loading="loading" class="mx-auto my-12 mt-0" width="400px">
             <template slot="progress">
               <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
             </template>
 
-            <v-img id="roadview" width="100%" height="250"></v-img>
+            <div id="roadview" style="width: 100%; height: 250px"></div>
 
             <v-card-title>{{ aptName }}</v-card-title>
 
@@ -64,9 +64,6 @@
             </v-card-text>
           </v-card>
         </template>
-        <v-card-actions>
-          <v-btn color="deep-purple lighten-2" text @click="reserve"> Reserve </v-btn>
-        </v-card-actions>
       </v-card>
     </template>
 
@@ -91,6 +88,7 @@ export default {
       // detailSidebar
       loading: false,
       selection: 1,
+      isView: false,
     };
   },
   methods: {
@@ -146,6 +144,23 @@ export default {
       store.commit("aptStore/SET_APTDETAILNAME", item.text);
       store.commit("aptStore/SET_APTLATLNG", latlng);
       await this.$store.dispatch("aptStore/aptDetailList", aptDetailInfo);
+      this.isView = true;
+      this.onRoadView();
+    },
+
+    onRoadView() {
+      var roadviewContainer = document.getElementById("roadview"); //로드뷰를 표시할 div
+      var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
+      var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+
+      let latlng = this.$store.state.aptStore.aptLatLng;
+      console.log(latlng);
+      var position = new kakao.maps.LatLng(latlng.lat, latlng.lng);
+
+      // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
+      roadviewClient.getNearestPanoId(position, 50, function (panoId) {
+        roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+      });
     },
 
     getAddr(lat, lng) {
@@ -160,33 +175,20 @@ export default {
       geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
     },
     // ---detailSidebar---
-    reserve() {
-      this.loading = true;
-      setTimeout(() => (this.loading = false), 2000);
-    },
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
       this.initMap();
     } else {
       const script = document.createElement("script");
+      document.head.appendChild(script);
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&libraries=services&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
-      document.head.appendChild(script);
 
-      var roadviewContainer = document.getElementById("roadview"); //로드뷰를 표시할 div
-      var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
-      var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
-
-      let latlng = this.$store.state.aptStore.aptLatLng;
-      console.log(latlng);
-      var position = new kakao.maps.LatLng(latlng.lat, latlng);
-
-      // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
-      roadviewClient.getNearestPanoId(position, 50, function (panoId) {
-        roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
-      });
+      console.log(
+        `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&libraries=services&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`
+      );
     }
   },
 
@@ -214,6 +216,9 @@ export default {
   },
   watch: {
     aptInfo: function (aptInfo) {
+      // console.log("oldAptInfo:", oldAptInfo);
+      // console.log("newaptInfo:", aptInfo);
+      // if (oldAptInfo.length === 0) return;
       var positions = [];
       aptInfo.forEach(function (regcode) {
         const position = {
