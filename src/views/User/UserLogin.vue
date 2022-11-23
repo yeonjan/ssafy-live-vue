@@ -91,10 +91,10 @@
                                       required
                                     ></v-text-field>
                                   </v-col>
-                                  <v-col cols="12" sm="6">
+                                  <v-col cols="4" sm="5">
                                     <v-text-field label="Email" v-model="userInfo.emailId" required></v-text-field>
                                   </v-col>
-                                  <v-col cols="12" sm="6">
+                                  <v-col cols="4" sm="5">
                                     <v-autocomplete
                                       v-model="userInfo.emailDomain"
                                       :items="[
@@ -108,12 +108,17 @@
                                       label="Domains"
                                     ></v-autocomplete>
                                   </v-col>
+                                  <v-col cols="4" sm="2">
+                                    <v-btn @click="emailCheck" elevation="1" style="margin-top: 15px">인증</v-btn>
+                                  </v-col>
                                   <v-col cols="12">
                                     <v-text-field
-                                      label="이름"
+                                      label="인증번호"
                                       type="text"
-                                      v-model="userInfo.userName"
+                                      v-model="inputNum"
                                       required
+                                      :disabled="canInput"
+                                      maxlength="6"
                                     ></v-text-field>
                                   </v-col>
                                 </v-row>
@@ -140,6 +145,7 @@
 </template>
 
 <script>
+import http from "@/util/http";
 // import { Carousel } from "vue-carousel";
 
 export default {
@@ -153,10 +159,29 @@ export default {
       loginInfo: {},
       userInfo: {},
       userPwd: "",
+      canInput: true,
+      checkNum: "",
+      inputNum: "",
     };
   },
 
   methods: {
+    async emailCheck() {
+      let email = this.userInfo.emailId + "@" + this.userInfo.emailDomain;
+
+      try {
+        alert("인증번호가 전송되었습니다.");
+        let { data } = await http.get(`/users/mailCheck`, {
+          params: { email: email },
+        });
+        this.checkNum = data;
+        console.log(this.checkNum);
+
+        this.canInput = false;
+      } catch (error) {
+        alert("인증번호 전송 실패");
+      }
+    },
     async login() {
       console.log("로그인 시도");
       try {
@@ -170,20 +195,26 @@ export default {
 
     async searchPwd() {
       console.log("비밀번호 찾기 시도");
-      try {
-        await this.$store.dispatch("userStore/searchPwd", this.userInfo);
-        let userPwd = this.$store.state.userStore.userPwd;
-        this.userPwd = userPwd;
-        console.log(!userPwd);
-        if (userPwd) {
-          this.alert_success = true;
-          this.dialog = false;
-        } else {
-          this.alert_fail = true;
-          this.dialog = false;
+      if (String(this.checkNum) !== this.inputNum) {
+        alert("인증번호를 확인해주세요");
+      } else {
+        try {
+          await this.$store.dispatch("userStore/searchPwd", this.userInfo);
+          let userPwd = this.$store.state.userStore.userPwd;
+          this.userPwd = userPwd;
+          console.log(!userPwd);
+          if (userPwd) {
+            this.alert_success = true;
+            this.dialog = false;
+          } else {
+            this.alert_fail = true;
+            this.dialog = false;
+          }
+          this.userInfo = [];
+          this.inputNum = "";
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
       }
     },
   },
