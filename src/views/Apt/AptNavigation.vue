@@ -1,6 +1,9 @@
 <template>
   <div class="map-nav-container">
-    <div class="row col-md-12 justify-content-center mb-2">
+    <div class="row col-md-12 justify-content-flex-start mb-2">
+      <div class="form-group col-md-2">
+        <button type="button" id="interest-view" class="btn btn-success">관심매물 보기</button>
+      </div>
       <div class="form-group col-md-2">
         <select class="form-select bg-secondary text-light" id="sido">
           <option value="">시도선택</option>
@@ -29,7 +32,6 @@ import store from "@/store";
 export default {
   data() {
     return {
-      aptInfo: {},
       aptDetailInfo: {},
     };
   },
@@ -42,7 +44,6 @@ export default {
         regcode: regCodeInfo,
       };
       await store.dispatch("aptStore/aptList", aptInfo);
-      this.aptInfo = store.state.aptStore.aptInfo;
     },
   },
   mounted() {

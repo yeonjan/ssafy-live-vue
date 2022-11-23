@@ -153,7 +153,6 @@ export default {
       console.log("로그인 시도");
       try {
         await this.$store.dispatch("userStore/login", this.loginInfo);
-        console.log(this.$store.state.userStore.userInfo);
         this.$router.push("/");
       } catch (error) {
         alert("로그인에 실패하였습니다. 아이디 또는 비밀번호를 확인해주세요.");
