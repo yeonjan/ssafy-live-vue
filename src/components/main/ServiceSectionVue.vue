@@ -13,11 +13,10 @@
               <i class="bx bxl-dribbble"></i>
             </div>
             <h4>
-              <a href="https://www.mk.co.kr/news/realestate/view/2022/09/791849/">미분양 '1·2위' 포항·대구</a>
+              <a v-bind:href="news[0].link">{{ news[0].title }}</a>
             </h4>
             <p>
-              대구의 '강남'이라고 불리는 수성구에 최근 미분양 주택이 급격히 늘고 있다. 포항시 역시 지난 7월 미분양
-              주택이 급증하며...
+              {{ news[0].description }}
             </p>
           </div>
         </div>
@@ -28,11 +27,10 @@
               <i class="bx bx-file"></i>
             </div>
             <h4>
-              <a href="https://www.mk.co.kr/news/realestate/view/2022/09/791843/">토지 매매도 얼어붙었다…</a>
+              <a v-bind:href="news[1].link">{{ news[1].title }}</a>
             </h4>
             <p>
-              부동산시장이 침체로 접어들면서 '원자재'격인 토지시장도 얼어붙고 있다. 필지 수를 기준으로 한 거래량이 9년
-              만에 최저치를...
+              {{ news[1].description }}
             </p>
           </div>
         </div>
@@ -43,13 +41,10 @@
               <i class="bx bx-tachometer"></i>
             </div>
             <h4>
-              <a href="https://www.mk.co.kr/news/realestate/view/2022/09/791549/"
-                >경매 유찰 속출에도 2억 이하 주택은 없어 못산다</a
-              >
+              <a v-bind:href="news[2].link">{{ news[2].title }}</a>
             </h4>
             <p>
-              최근 부동산 경매시장에서 유찰 행진이 이어지고 있는 가운데서도 저가 주택 수요는 낙찰 행진이 이어지고 있다.
-              특히 경기도 내 감정가 2억원 이하 아파트는 감정가 대비...
+              {{ news[2].description }}
             </p>
           </div>
         </div>
@@ -60,13 +55,10 @@
               <i class="bx bx-layer"></i>
             </div>
             <h4>
-              <a href="https://www.mk.co.kr/news/realestate/view/2022/09/793433/"
-                >LH, 연내 청년원가주택 3천호 사전청약…</a
-              >
+              <a v-bind:href="news[3].link">{{ news[3].title }}</a>
             </h4>
             <p>
-              한국토지주택공사(LH)가 올해 약 3천호의 청년원가주택을 사전청약으로 공급한다. LH는 지난 6일 경남 진주
-              본사에서 이정관 사장직무대행 주재로...
+              {{ news[3].description }}
             </p>
           </div>
         </div>
@@ -77,7 +69,19 @@
 </template>
 
 <script>
-export default {};
+import http from "@/util/http";
+export default {
+  data() {
+    return {
+      news: "",
+    };
+  },
+  async created() {
+    let { data } = await http.get("/search");
+    this.news = data.items;
+    console.log(this.news);
+  },
+};
 </script>
 
 <style scoped>
