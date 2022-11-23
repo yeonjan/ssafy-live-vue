@@ -6,14 +6,25 @@
           <div class="row gy-4 justify-content-end">
             <!-- 화면 소개글 -->
             <div class="col-lg-8 contianer-font">
-              <h1 data-aos="zoom-in-right" data-aos-delay="400" style="margin-bottom: 100px">Lorem Ipsum</h1>
+              <h1
+                data-aos="zoom-in-right"
+                data-aos-delay="400"
+                style="margin-bottom: 100px"
+              >
+                Lorem Ipsum
+              </h1>
               <p data-aos="zoom-in-right" data-aos-delay="600">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                <br />Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, <br />when an
-                unknown printer took a galley of type and scrambled it to make a type<br />
-                specimen book. It has survived not only five centuries, but also the leap into<br />
-                electronic typesetting, remaining essentially unchanged. It was popularised <br />
-                in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,<br />
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry.
+                <br />Lorem Ipsum has been the industry's standard dummy text
+                ever since the 1500s, <br />when an unknown printer took a
+                galley of type and scrambled it to make a type<br />
+                specimen book. It has survived not only five centuries, but also
+                the leap into<br />
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised <br />
+                in the 1960s with the release of Letraset sheets containing
+                Lorem Ipsum passages,<br />
                 and more recently with desktop publishing
               </p>
             </div>
@@ -49,11 +60,22 @@
                     <div class="invalid-feedback">필수 항목입니다.</div>
                   </div>
                   <div>
-                    <button type="button" id="btn-login" class="btn btn-dark" @click="login">로그인</button>
+                    <button
+                      type="button"
+                      id="btn-login"
+                      class="btn btn-dark"
+                      @click="login"
+                    >
+                      로그인
+                    </button>
                     <!-- 비밀번호 찾기 확인 alert Sucess-->
                     <template>
                       <div>
-                        <v-alert v-model="alert_success" dismissible type="success">
+                        <v-alert
+                          v-model="alert_success"
+                          dismissible
+                          type="success"
+                        >
                           귀하의 비밀번호 {{ userPwd }}는입니다.
                         </v-alert>
                       </div>
@@ -71,7 +93,14 @@
                       <div id="search-pwd">
                         <v-dialog v-model="dialog" persistent max-width="600px">
                           <template v-slot:activator="{ on, attrs }">
-                            <v-text class="float-right" dark v-bind="attrs" v-on="on"> 비밀번호 찾기 </v-text>
+                            <v-text
+                              class="float-right"
+                              dark
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              비밀번호 찾기
+                            </v-text>
                           </template>
                           <v-card>
                             <v-card-title>
@@ -81,7 +110,11 @@
                               <v-container>
                                 <v-row>
                                   <v-col cols="12">
-                                    <v-text-field label="ID" v-model="userInfo.userId" required></v-text-field>
+                                    <v-text-field
+                                      label="ID"
+                                      v-model="userInfo.userId"
+                                      required
+                                    ></v-text-field>
                                   </v-col>
                                   <v-col cols="12">
                                     <v-text-field
@@ -92,7 +125,11 @@
                                     ></v-text-field>
                                   </v-col>
                                   <v-col cols="4" sm="5">
-                                    <v-text-field label="Email" v-model="userInfo.emailId" required></v-text-field>
+                                    <v-text-field
+                                      label="Email"
+                                      v-model="userInfo.emailId"
+                                      required
+                                    ></v-text-field>
                                   </v-col>
                                   <v-col cols="4" sm="5">
                                     <v-autocomplete
@@ -109,7 +146,12 @@
                                     ></v-autocomplete>
                                   </v-col>
                                   <v-col cols="4" sm="2">
-                                    <v-btn @click="emailCheck" elevation="1" style="margin-top: 15px">인증</v-btn>
+                                    <v-btn
+                                      @click="emailCheck"
+                                      elevation="1"
+                                      style="margin-top: 15px"
+                                      >인증</v-btn
+                                    >
                                   </v-col>
                                   <v-col cols="12">
                                     <v-text-field
@@ -126,8 +168,20 @@
                             </v-card-text>
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="dialog = false"> Close </v-btn>
-                              <v-btn style="color: #222831" text @click="searchPwd()"> Search Pwd </v-btn>
+                              <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="dialog = false"
+                              >
+                                Close
+                              </v-btn>
+                              <v-btn
+                                style="color: #222831"
+                                text
+                                @click="searchPwd()"
+                              >
+                                Search Pwd
+                              </v-btn>
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
@@ -146,11 +200,8 @@
 
 <script>
 import http from "@/util/http";
-// import { Carousel } from "vue-carousel";
 
 export default {
-  // components: { Carousel },
-
   data() {
     return {
       alert_success: false,
@@ -201,6 +252,7 @@ export default {
           await this.$store.dispatch("userStore/searchPwd", this.userInfo);
           let userPwd = this.$store.state.userStore.userPwd;
           this.userPwd = userPwd;
+          this.$store.commit("userStore/SET_PWD", []);
           console.log(!userPwd);
           if (userPwd) {
             this.alert_success = true;

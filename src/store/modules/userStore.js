@@ -78,7 +78,8 @@ const userStore = {
       }
     },
     async tokenRegeneration({ commit, state }) {
-      http.defaults.headers["refresh-token"] = localStorage.getItem("refresh-token");
+      http.defaults.headers["refresh-token"] =
+        localStorage.getItem("refresh-token");
       try {
         let { data } = await http.post("/users/validate/refresh", {
           userId: state.userInfo.id,
