@@ -43,21 +43,10 @@
         </div>
         <div class="form-group" align="left">
           <label for="files">파일:</label>
-          <input
-            ref="files"
-            type="file"
-            class="form-control border"
-            name="files[]"
-            multiple="multiple"
-          />
+          <input ref="files" type="file" class="form-control border" name="files[]" multiple="multiple" />
         </div>
         <div class="col-auto text-center mt-3">
-          <button
-            type="button"
-            id="btn-register"
-            class="btn btn-outline-primary mb-3"
-            @click="editeArticle"
-          >
+          <button type="button" id="btn-register" class="btn btn-outline-primary mb-3" @click="editeArticle">
             수정
           </button>
         </div>
@@ -71,12 +60,14 @@ import http from "@/util/http";
 import store from "@/store";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/vue-editor";
+import "@toast-ui/editor/dist/i18n/ko-kr";
 export default {
   data() {
     return {
       //editorText: "내용을 입력해주세요",
       editorOptions: {
         hideModeSwitch: true,
+        language: "ko",
       },
       article: {
         //content: "asd",
