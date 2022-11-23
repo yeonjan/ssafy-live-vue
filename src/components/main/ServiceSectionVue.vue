@@ -13,7 +13,7 @@
               <i class="bx bxl-dribbble"></i>
             </div>
             <h4>
-              <a v-bind:href="news[0].link">{{ news[0].title }}</a>
+              <a v-bind:href="news[0].link" v-html="news[0].title"></a>
             </h4>
             <p v-html="news[0].description"></p>
           </div>
@@ -25,7 +25,7 @@
               <i class="bx bx-file"></i>
             </div>
             <h4>
-              <a v-bind:href="news[1].link">{{ news[1].title }}</a>
+              <a v-bind:href="news[1].link" v-html="news[1].title"></a>
             </h4>
             <p v-html="news[1].description"></p>
           </div>
@@ -37,7 +37,7 @@
               <i class="bx bx-tachometer"></i>
             </div>
             <h4>
-              <a v-bind:href="news[2].link">{{ news[2].title }}</a>
+              <a v-bind:href="news[2].link" v-html="news[2].title"></a>
             </h4>
             <p v-html="news[2].description"></p>
           </div>
@@ -49,7 +49,7 @@
               <i class="bx bx-layer"></i>
             </div>
             <h4>
-              <a v-bind:href="news[3].link">{{ news[3].title }}</a>
+              <a v-bind:href="news[3].link" v-html="news[3].title"></a>
             </h4>
             <p v-html="news[3].description"></p>
           </div>
