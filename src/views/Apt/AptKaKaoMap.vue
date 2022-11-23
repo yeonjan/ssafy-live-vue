@@ -5,16 +5,12 @@
       <v-card id="aptInfoCard" class="mx-auto mt-0" width="350px" height="100vh" tile>
         <v-list flat>
           <v-list-item-group v-model="selectedItem" color="primary">
-            <v-list-item v-for="(item, i) in items" :key="i">
+            <v-list-item v-for="(item, i) in items" :key="i" @click="searchDetailApt(item)">
               <!-- <v-list-item-icon>
                     <v-icon v-text="item.icon"></v-icon>
                   </v-list-item-icon> -->
               <v-list-item-content>
-                <v-list-item-title
-                  v-text="item.text"
-                  id="aptInfo-list"
-                  @click="searchDetailApt(item)"
-                ></v-list-item-title>
+                <v-list-item-title v-text="item.text" id="aptInfo-list"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -23,49 +19,51 @@
     </template>
 
     <!-- AptDetailSideBar -->
-    <template v-if="isView">
-      <v-card id="apt-detail-info" class="mx-auto" width="500px" height="100vh" tile>
-        <template>
-          <v-card :loading="loading" class="mx-auto my-12 mt-0" width="400px">
-            <template slot="progress">
-              <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-            </template>
+    <v-card v-show="isView" id="apt-detail-info" class="mx-auto" width="500px" height="100vh" tile>
+      <template>
+        <v-card :loading="loading" class="mx-auto my-12 mt-0" width="400px">
+          <template slot="progress">
+            <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
+          </template>
+          <!-- 로드뷰 -->
+          <div id="roadview" style="width: 100%; height: 250px"></div>
+          <v-card-title class="v-flex justify-space-between"
+            >{{ aptInfo.text }}
+            <v-btn icon :color="interestToggle" @click="registInterest()">
+              <v-icon>mdi-thumb-up</v-icon>
+            </v-btn></v-card-title
+          >
+          <v-divider inset></v-divider>
+          <v-card-text>
+            <v-row align="center" class="mx-0">
+              <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
 
-            <div id="roadview" style="width: 100%; height: 250px"></div>
+              <div class="grey--text ms-4">4.5 (413)</div>
+            </v-row>
 
-            <v-card-title>{{ aptName }}</v-card-title>
+            <div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>
 
-            <v-card-text>
-              <v-row align="center" class="mx-0">
-                <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
+            <div>{{ aptAddress }}</div>
+          </v-card-text>
 
-                <div class="grey--text ms-4">4.5 (413)</div>
-              </v-row>
+          <v-divider class="mx-4"></v-divider>
 
-              <div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>
+          <v-card-title>Tonight's availability</v-card-title>
 
-              <div>{{ aptAddress }}</div>
-            </v-card-text>
+          <v-card-text>
+            <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
+              <v-chip>5:30PM</v-chip>
 
-            <v-divider class="mx-4"></v-divider>
+              <v-chip>7:30PM</v-chip>
 
-            <v-card-title>Tonight's availability</v-card-title>
+              <v-chip>8:00PM</v-chip>
 
-            <v-card-text>
-              <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-                <v-chip>5:30PM</v-chip>
-
-                <v-chip>7:30PM</v-chip>
-
-                <v-chip>8:00PM</v-chip>
-
-                <v-chip>9:00PM</v-chip>
-              </v-chip-group>
-            </v-card-text>
-          </v-card>
-        </template>
-      </v-card>
-    </template>
+              <v-chip>9:00PM</v-chip>
+            </v-chip-group>
+          </v-card-text>
+        </v-card>
+      </template>
+    </v-card>
 
     <!-- AptKaKaoMap -->
     <div class="mapContainer">
@@ -83,12 +81,15 @@ export default {
       // kakaoMap
       map: null,
       markers: [], // 화면에 표시할 마커 객체
+      aptInfo: [],
       // sidebar
       selectedItem: null,
       // detailSidebar
       loading: false,
-      selection: 1,
       isView: false,
+      selection: 1,
+      detailLoading: false,
+      interestToggle: "#adb5bd",
     };
   },
   methods: {
@@ -136,20 +137,23 @@ export default {
       this.map.panTo(moveLatLon);
     },
     async searchDetailApt(item) {
+      this.aptInfo = item;
+      console.log(this.aptInfo);
       let aptDetailInfo = {
         regcode: item.code,
       };
+      await this.$store.dispatch("aptStore/aptDetailList", aptDetailInfo);
       let latlng = item.latlng;
       this.getAddr(latlng.lat, latlng.lng);
       store.commit("aptStore/SET_APTDETAILNAME", item.text);
       store.commit("aptStore/SET_APTLATLNG", latlng);
-      await this.$store.dispatch("aptStore/aptDetailList", aptDetailInfo);
       this.isView = true;
       this.onRoadView();
     },
 
     onRoadView() {
       var roadviewContainer = document.getElementById("roadview"); //로드뷰를 표시할 div
+      console.log(roadviewContainer);
       var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
       var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
 
@@ -158,9 +162,34 @@ export default {
       var position = new kakao.maps.LatLng(latlng.lat, latlng.lng);
 
       // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
-      roadviewClient.getNearestPanoId(position, 50, function (panoId) {
-        roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+      roadviewClient.getNearestPanoId(position, 50, (panoId) => {
+        if (panoId == null) {
+          alert("로드뷰가 뜨지 않는 건물");
+          let imgsrc = require("@/assets/img/apt/p3.png");
+          document.getElementById(
+            "roadview"
+          ).innerHTML = `<img src=${imgsrc} alt="My Image" style="width:100%; height:250px">`;
+        } else {
+          roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+        }
       });
+    },
+
+    async registInterest() {
+      if (this.interestToggle === "deep-orange") this.interestToggle = "#adb5bd";
+      else this.interestToggle = "deep-orange";
+      const userInfo = this.$store.state.userStore.userInfo;
+      const code = this.aptInfo.code;
+      const interestInfo = {
+        userId: userInfo.id,
+        aptCode: code,
+      };
+      try {
+        await this.$store.dispatch("aptStore/aptRegistInterest", interestInfo);
+        console.log("관심매물 등록 성공");
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     getAddr(lat, lng) {
@@ -193,19 +222,12 @@ export default {
   },
 
   computed: {
-    aptInfo() {
-      return this.$store.state.aptStore.aptInfo;
-    },
     items() {
       let newArray = store.state.aptStore.aptInfo.map((el) => {
         return { text: el.apartmentName, code: el.aptCode, latlng: { lat: el.lat, lng: el.lng } };
       });
       return newArray;
     },
-    aptName() {
-      return this.$store.state.aptStore.aptDetailName;
-    },
-
     aptDetailInfo() {
       return this.$store.state.aptStore.aptDetailInfo;
     },
@@ -215,10 +237,8 @@ export default {
     },
   },
   watch: {
-    aptInfo: function (aptInfo) {
-      // console.log("oldAptInfo:", oldAptInfo);
-      // console.log("newaptInfo:", aptInfo);
-      // if (oldAptInfo.length === 0) return;
+    aptInfo: function (aptInfo, oldAptInfo) {
+      if (oldAptInfo.length > 0) return;
       var positions = [];
       aptInfo.forEach(function (regcode) {
         const position = {
@@ -237,12 +257,6 @@ export default {
 </script>
 
 <style scoped>
-.mapContainer {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  /* flex-grow: 2; */
-}
 #map {
   width: 100%;
   height: 100vh;
@@ -250,6 +264,11 @@ export default {
 
 #aptInfoCard {
   overflow: auto;
-  /* flex-grow: 1; */
+}
+.mapContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* flex-grow: 2; */
 }
 </style>

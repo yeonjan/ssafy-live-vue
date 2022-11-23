@@ -46,7 +46,6 @@ const aptStore = {
     },
 
     async aptList({ commit }, aptCodeInfo) {
-      console.log("aptList 실행");
       let { data } = await http.post("/apts/", aptCodeInfo);
 
       let aptInfo = data.regcodes;
@@ -54,11 +53,14 @@ const aptStore = {
     },
 
     async aptDetailList({ commit }, regCodeInfo) {
-      console.log(regCodeInfo);
       let { data } = await http.post("/apts/detail", regCodeInfo);
 
       let aptDetailInfo = data;
       commit("SET_APTDETAILINFO", { aptDetailInfo });
+    },
+
+    async aptRegistInterest(_, interestInfo) {
+      await http.post("/apts/interest", interestInfo);
     },
   },
 };
