@@ -6,25 +6,14 @@
           <div class="row gy-4 justify-content-end">
             <!-- 화면 소개글 -->
             <div class="col-lg-8 contianer-font">
-              <h1
-                data-aos="zoom-in-right"
-                data-aos-delay="400"
-                style="margin-bottom: 100px"
-              >
-                Lorem Ipsum
-              </h1>
+              <h1 data-aos="zoom-in-right" data-aos-delay="400" style="margin-bottom: 100px">Lorem Ipsum</h1>
               <p data-aos="zoom-in-right" data-aos-delay="600">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-                <br />Lorem Ipsum has been the industry's standard dummy text
-                ever since the 1500s, <br />when an unknown printer took a
-                galley of type and scrambled it to make a type<br />
-                specimen book. It has survived not only five centuries, but also
-                the leap into<br />
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised <br />
-                in the 1960s with the release of Letraset sheets containing
-                Lorem Ipsum passages,<br />
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                <br />Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, <br />when an
+                unknown printer took a galley of type and scrambled it to make a type<br />
+                specimen book. It has survived not only five centuries, but also the leap into<br />
+                electronic typesetting, remaining essentially unchanged. It was popularised <br />
+                in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,<br />
                 and more recently with desktop publishing
               </p>
             </div>
@@ -60,9 +49,7 @@
                     <div class="invalid-feedback">필수 항목입니다.</div>
                   </div>
                   <div class="mb-3">
-                    <label for="userpwd" class="form-label"
-                      >비밀번호 확인</label
-                    >
+                    <label for="userpwd" class="form-label">비밀번호 확인</label>
                     <input
                       type="password"
                       class="form-control"
@@ -96,7 +83,7 @@
                         id="emailid"
                         v-model="registInfo.emailId"
                         name="emailId"
-                        placeholder="이메일아이디"
+                        placeholder=""
                         required
                       />
                       <span class="input-group-text">@</span>
@@ -107,18 +94,12 @@
                         name="emailDomain"
                         aria-label="이메일 도메인 선택"
                       >
-                        <option selected>선택</option>
-                        <option value="ssafy.com">싸피</option>
-                        <option value="google.com">구글</option>
-                        <option value="naver.com">네이버</option>
-                        <option value="kakao.com">카카오</option>
+                        <option value="ssafy.com">ssafy.com</option>
+                        <option value="google.com">google.com</option>
+                        <option value="naver.com">'naver.com</option>
+                        <option value="kakao.com">kakao.com</option>
                       </select>
-                      <v-btn
-                        @click="emailCheck"
-                        elevation="1"
-                        style="margin-left: 10px"
-                        >인증</v-btn
-                      >
+                      <v-btn @click="emailCheck" elevation="1" style="margin-left: 10px">인증</v-btn>
                     </div>
 
                     <div class="valid-feedback">Valid.</div>
@@ -134,14 +115,7 @@
                       maxlength="6"
                     />
                   </div>
-                  <button
-                    type="button"
-                    id="btn-join"
-                    class="btn btn-dark"
-                    @click="regist"
-                  >
-                    회원가입
-                  </button>
+                  <button type="button" id="btn-join" class="btn btn-dark" @click="regist">회원가입</button>
                   <div></div>
                 </form>
               </div>
@@ -169,19 +143,22 @@ export default {
 
   methods: {
     async emailCheck() {
-      let email = this.registInfo.emailId + "@" + this.registInfo.emailDomain;
+      if (!this.registInfo.emailDomain) alert("이메일을 입력해주세요");
+      else {
+        let email = this.registInfo.emailId + "@" + this.registInfo.emailDomain;
 
-      try {
-        alert("인증번호가 전송되었습니다.");
-        let { data } = await http.get(`/users/mailCheck`, {
-          params: { email: email },
-        });
-        this.checkNum = data;
-        console.log(this.checkNum);
+        try {
+          alert("인증번호가 전송되었습니다.");
+          let { data } = await http.get(`/users/mailCheck`, {
+            params: { email: email },
+          });
+          this.checkNum = data;
+          console.log(this.checkNum);
 
-        this.canInput = false;
-      } catch (error) {
-        alert("인증번호 전송 실패");
+          this.canInput = false;
+        } catch (error) {
+          alert("인증번호 전송 실패");
+        }
       }
     },
     async checkId() {

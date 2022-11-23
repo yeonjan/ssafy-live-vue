@@ -28,6 +28,12 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: "neo";
+  src: url("@/assets/font/Neo/AppleSDGothicNeoM.ttf") format("truetype");
+  font-weight: 300;
+}
+
 #main--container {
   display: flex;
   flex-direction: column;

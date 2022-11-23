@@ -36,7 +36,7 @@
                   </template>
                   <v-card>
                     <v-card-title>
-                      <span class="text-h5">이메일을 수정하기 위해 인증절차가 필요합니다.</span>
+                      <span class="text-h5">이메일 인증</span>
                     </v-card-title>
                     <v-card-text>
                       <v-container>
@@ -162,7 +162,7 @@ export default {
 
 <style lang="scss" scoped>
 #btn-update {
-  padding: 2px 9px 3px;
+  padding: 4px 9px 3px;
   font-size: 14px;
 
   color: #222831;
