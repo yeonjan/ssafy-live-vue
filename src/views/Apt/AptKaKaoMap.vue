@@ -28,7 +28,7 @@
           <!-- 로드뷰 -->
           <div id="roadview" style="width: 100%; height: 250px"></div>
           <v-card-title class="v-flex justify-space-between"
-            >{{ aptInfo.text }}
+            >{{ clickedAptInfo.text }}
             <v-btn icon :color="interestToggle" @click="registInterest()">
               <v-icon>mdi-thumb-up</v-icon>
             </v-btn></v-card-title
@@ -81,12 +81,12 @@ export default {
       // kakaoMap
       map: null,
       markers: [], // 화면에 표시할 마커 객체
-      aptInfo: [],
       // sidebar
       selectedItem: null,
       // detailSidebar
       loading: false,
       isView: false,
+      clickedAptInfo: [],
       selection: 1,
       detailLoading: false,
       interestToggle: "#adb5bd",
@@ -137,8 +137,7 @@ export default {
       this.map.panTo(moveLatLon);
     },
     async searchDetailApt(item) {
-      this.aptInfo = item;
-      console.log(this.aptInfo);
+      this.clickedAptInfo = item;
       let aptDetailInfo = {
         regcode: item.code,
       };
@@ -178,8 +177,9 @@ export default {
     async registInterest() {
       if (this.interestToggle === "deep-orange") this.interestToggle = "#adb5bd";
       else this.interestToggle = "deep-orange";
+
       const userInfo = this.$store.state.userStore.userInfo;
-      const code = this.aptInfo.code;
+      const code = this.clickedAptInfo.code;
       const interestInfo = {
         userId: userInfo.id,
         aptCode: code,
@@ -210,14 +210,10 @@ export default {
       this.initMap();
     } else {
       const script = document.createElement("script");
-      document.head.appendChild(script);
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&libraries=services&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
-
-      console.log(
-        `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&libraries=services&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`
-      );
+      document.head.appendChild(script);
     }
   },
 
@@ -235,10 +231,13 @@ export default {
     aptAddress() {
       return this.$store.state.aptStore.aptAddress;
     },
+
+    aptInfo() {
+      return this.$store.state.aptStore.aptInfo;
+    },
   },
   watch: {
-    aptInfo: function (aptInfo, oldAptInfo) {
-      if (oldAptInfo.length > 0) return;
+    aptInfo: function (aptInfo) {
       var positions = [];
       aptInfo.forEach(function (regcode) {
         const position = {
