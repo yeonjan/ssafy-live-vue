@@ -49,7 +49,7 @@
           <v-divider class="mx-4"></v-divider>
 
           <v-card-title>Tonight's availability</v-card-title>
-
+          <line-chart :chartData="chartData" :chartOptions="chartOptions" :width="100" :height="50"></line-chart>
           <v-card-text>
             <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
               <v-chip>5:30PM</v-chip>
@@ -73,9 +73,13 @@
 </template>
 
 <script>
+import http from "@/util/http";
 import store from "@/store";
-
+import LineChart from "@/components/chart/LineChart.vue";
 export default {
+  components: {
+    LineChart,
+  },
   data() {
     return {
       // kakaoMap
@@ -90,6 +94,19 @@ export default {
       selection: 1,
       detailLoading: false,
       interestToggle: "#adb5bd",
+      //차트 데이터
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            label: "Data ne",
+            backgroundColor: "#f87979",
+            data: [],
+            borderColor: "red",
+          },
+        ],
+      },
+      chartOptions: { responsive: true },
     };
   },
   methods: {
@@ -146,6 +163,19 @@ export default {
       this.getAddr(latlng.lat, latlng.lng);
       store.commit("aptStore/SET_APTDETAILNAME", item.text);
       store.commit("aptStore/SET_APTLATLNG", latlng);
+
+      let { data } = await http.get(`/apts/price/${item.code}`);
+      let labels = [];
+      let avgs = [];
+      data.map((el) => {
+        // console.log("냠", this.chartData.datasets[0]);
+        labels.push(el.dealyear);
+        avgs.push(el.avg);
+      });
+      this.chartData.labels = labels;
+      this.chartData.datasets[0].data = avgs;
+      console.log("뭐라도 출력해봐...", data);
+
       this.isView = true;
       this.onRoadView();
     },
