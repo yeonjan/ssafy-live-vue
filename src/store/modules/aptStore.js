@@ -9,7 +9,7 @@ const aptStore = {
     aptAddress: {}, // 아파트 주소
     aptLatLng: {}, // 아파트 상세 주소
     aptInfo: [], //  아파트 리스트를 받아올 객체
-    aptInterestCode: {}, // 관심매물 아파트 코드 객체
+    aptInterestCode: [], // 관심매물 아파트 코드 객체
     aptInterestName: {}, // 관심매물 아파트 정보 객체
   }),
   getters: {},

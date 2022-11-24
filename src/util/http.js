@@ -4,6 +4,7 @@ import store from "@/store";
 // axios 객체 생성 후 export
 let instance = axios.create({
   baseURL: "http://localhost:2000/",
+  // baseURL: "http://localhost:8080/",
   headers: {
     "Content-Type": "application/json",
   },

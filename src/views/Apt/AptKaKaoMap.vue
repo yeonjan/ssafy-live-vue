@@ -34,16 +34,22 @@
             </v-btn></v-card-title
           >
           <v-divider inset></v-divider>
-          <v-card-text>
-            <v-row align="center" class="mx-0">
-              <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-
-              <div class="grey--text ms-4">4.5 (413)</div>
-            </v-row>
-
-            <div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>
-
+          <v-card-text min-height="100px">
             <div>{{ aptAddress }}</div>
+            <div class="text-center mt-2">
+              <v-rating
+                v-model="rating"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                half-increments
+                hover
+                small
+              ></v-rating>
+            </div>
+            <!-- <v-row align="center" class="mx-0"> -->
+            <!-- <v-rating :value="values" color="amber" dense half-increments readonly size="14"></v-rating> -->
+            <!-- </v-row> -->
           </v-card-text>
 
           <v-divider class="mx-4"></v-divider>
@@ -89,6 +95,7 @@ export default {
       // detailSidebar
       loading: false,
       isView: false,
+      values: 0,
       clickedAptInfo: [],
       selection: 1,
       detailLoading: false,
@@ -153,6 +160,8 @@ export default {
       this.map.panTo(moveLatLon);
     },
     async searchDetailApt(item) {
+      this.values = Math.floor(Math.random() * 5);
+      this.interestToggle = "#adb5bd";
       this.clickedAptInfo = item;
       let aptDetailInfo = {
         regcode: item.code,
@@ -162,7 +171,17 @@ export default {
       this.getAddr(latlng.lat, latlng.lng);
       this.$store.commit("aptStore/SET_APTDETAILNAME", item.text);
       this.$store.commit("aptStore/SET_APTLATLNG", latlng);
-
+      // 관심 매물 on-off
+      const aptCodes = this.$store.state.aptStore.aptInterestCode.regCodes;
+      console.log(aptCodes);
+      if (aptCodes) {
+        for (const code of aptCodes) {
+          if (item.code === code.aptCode) {
+            this.interestToggle = "deep-orange";
+            break;
+          }
+        }
+      }
       let { data } = await http.get(`/apts/price/${item.code}`);
       let labels = [];
       let avgs = [];
