@@ -178,7 +178,7 @@ export default {
       if (this.interestToggle === "deep-orange") this.interestToggle = "#adb5bd";
       else this.interestToggle = "deep-orange";
 
-      const userInfo = this.$store.state.userStore.userInfo;
+      const userInfo = this.$store.state.userStore.userInfo.id;
       const code = this.clickedAptInfo.code;
       const interestInfo = {
         userId: userInfo.id,
@@ -186,7 +186,6 @@ export default {
       };
       try {
         await this.$store.dispatch("aptStore/aptRegistInterest", interestInfo);
-        console.log("관심매물 등록 성공");
       } catch (error) {
         console.log(error);
       }
@@ -234,6 +233,10 @@ export default {
 
     aptInfo() {
       return this.$store.state.aptStore.aptInfo;
+    },
+
+    aptInterestList() {
+      return this.$store.state.aptStore.aptInterestList;
     },
   },
   watch: {

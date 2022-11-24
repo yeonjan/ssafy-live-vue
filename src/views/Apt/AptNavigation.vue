@@ -2,7 +2,7 @@
   <div class="map-nav-container">
     <div class="row col-md-12 justify-content-flex-start mb-2">
       <div class="form-group col-md-2">
-        <button type="button" id="interest-view" class="btn btn-success">관심매물 보기</button>
+        <button type="button" id="interest-view" class="btn btn-success" @click="interestView()">관심매물 보기</button>
       </div>
       <div class="form-group col-md-2">
         <select class="form-select bg-secondary text-light" id="sido">
@@ -45,9 +45,19 @@ export default {
       };
       await store.dispatch("aptStore/aptList", aptInfo);
     },
+
+    async interestView() {
+      const userId = {
+        userId: this.$store.state.userStore.userInfo.id,
+      };
+      await store.dispatch("aptStore/aptInterestView", userId);
+      const aptCode = {
+        regcode: this.$store.state.aptStore.aptInterestList,
+      };
+      await store.dispatch("aptStore/aptInterestInfo", aptCode);
+    },
   },
   mounted() {
-    // let date = new Date();
     // 브라우저가 열리면 시도정보 얻기.
     sendRequest("sido", "*00000000", "sido");
 
