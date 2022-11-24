@@ -16,7 +16,7 @@
             <router-link class="nav-link scrollto active" to="/">Home</router-link>
           </li>
           <li><router-link to="/apts">아파트 매매정보</router-link></li>
-          <li><a class="nav-link scrollto" href="#">소개</a></li>
+          <li><router-link to="/intro">소개</router-link></li>
           <li><router-link to="/board/notice">공지사항</router-link></li>
           <li class="dropdown">
             <a href="#" class="getstarted scrollto">
@@ -40,7 +40,6 @@
                 <li>
                   <router-link to="/users/mypage">회원정보 확인</router-link>
                 </li>
-                <li><a href="#">관심지역 조회</a></li>
               </div>
               <div v-else>
                 <li><a @click="logout">로그아웃</a></li>

@@ -48,7 +48,7 @@
 
           <v-divider class="mx-4"></v-divider>
 
-          <v-card-title>Tonight's availability</v-card-title>
+          <v-card-title>년도별 아파트 매매평균</v-card-title>
           <line-chart :chartData="chartData" :chartOptions="chartOptions" :width="100" :height="50"></line-chart>
           <v-card-text>
             <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
@@ -74,7 +74,6 @@
 
 <script>
 import http from "@/util/http";
-import store from "@/store";
 import LineChart from "@/components/chart/LineChart.vue";
 export default {
   components: {
@@ -99,7 +98,7 @@ export default {
         labels: [],
         datasets: [
           {
-            label: "Data ne",
+            label: "아파트 가격",
             backgroundColor: "#f87979",
             data: [],
             borderColor: "red",
@@ -161,8 +160,8 @@ export default {
       await this.$store.dispatch("aptStore/aptDetailList", aptDetailInfo);
       let latlng = item.latlng;
       this.getAddr(latlng.lat, latlng.lng);
-      store.commit("aptStore/SET_APTDETAILNAME", item.text);
-      store.commit("aptStore/SET_APTLATLNG", latlng);
+      this.$store.commit("aptStore/SET_APTDETAILNAME", item.text);
+      this.$store.commit("aptStore/SET_APTLATLNG", latlng);
 
       let { data } = await http.get(`/apts/price/${item.code}`);
       let labels = [];
@@ -174,7 +173,6 @@ export default {
       });
       this.chartData.labels = labels;
       this.chartData.datasets[0].data = avgs;
-      console.log("뭐라도 출력해봐...", data);
 
       this.isView = true;
       this.onRoadView();
@@ -211,7 +209,7 @@ export default {
       const userInfo = this.$store.state.userStore.userInfo.id;
       const code = this.clickedAptInfo.code;
       const interestInfo = {
-        userId: userInfo.id,
+        userId: userInfo,
         aptCode: code,
       };
       try {
@@ -224,10 +222,10 @@ export default {
     getAddr(lat, lng) {
       const geocoder = new kakao.maps.services.Geocoder();
       const coord = new kakao.maps.LatLng(lat, lng);
-      let callback = function (result, status) {
+      let callback = (result, status) => {
         if (status === kakao.maps.services.Status.OK) {
           console.log(result[0].road_address.address_name);
-          store.commit("aptStore/SET_APTADDRESS", result[0].road_address.address_name);
+          this.$store.commit("aptStore/SET_APTADDRESS", result[0].road_address.address_name);
         }
       };
       geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
@@ -248,9 +246,10 @@ export default {
 
   computed: {
     items() {
-      let newArray = store.state.aptStore.aptInfo.map((el) => {
+      let newArray = this.$store.state.aptStore.aptInfo.map((el) => {
         return { text: el.apartmentName, code: el.aptCode, latlng: { lat: el.lat, lng: el.lng } };
       });
+      console.log("newArray : ", newArray);
       return newArray;
     },
     aptDetailInfo() {
@@ -283,7 +282,7 @@ export default {
     },
   },
   beforeDestroy() {
-    store.commit("aptStore/SET_APTINFO", { aptInfo: [] });
+    this.$store.commit("aptStore/SET_APTINFO", { aptInfo: [] });
   },
 };
 </script>

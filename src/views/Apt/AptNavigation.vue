@@ -50,11 +50,13 @@ export default {
       const userId = {
         userId: this.$store.state.userStore.userInfo.id,
       };
-      await store.dispatch("aptStore/aptInterestView", userId);
-      const aptCode = {
-        regcode: this.$store.state.aptStore.aptInterestList,
-      };
-      await store.dispatch("aptStore/aptInterestInfo", aptCode);
+      await store.dispatch("aptStore/aptInterestList", userId);
+
+      const aptCode = this.$store.state.aptStore.aptInterestCode.regcodes;
+
+      let aptCodes = aptCode.map((el) => parseInt(el.aptCode));
+      console.log(aptCodes);
+      await store.dispatch("aptStore/aptInterestName", aptCodes);
     },
   },
   mounted() {

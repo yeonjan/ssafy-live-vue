@@ -8,9 +8,9 @@ const aptStore = {
     aptDetailName: null,
     aptAddress: {}, // 아파트 주소
     aptLatLng: {}, // 아파트 상세 주소
-    aptInfo: {}, //  아파트 리스트를 받아올 객체
-    aptInterestList: {}, // 해당 유저의 관심 매물 아파트 코드
-    aptInterestInfo: {}, // 관심매물의 아파트 정보
+    aptInfo: [], //  아파트 리스트를 받아올 객체
+    aptInterestCode: {}, // 관심매물 아파트 코드 객체
+    aptInterestName: {}, // 관심매물 아파트 정보 객체
   }),
   getters: {},
   mutations: {
@@ -38,13 +38,13 @@ const aptStore = {
       state.aptLatLng = payload;
       console.log(state.aptLatLng);
     },
-    SET_APTINTERESTVIEW(state, payload) {
-      state.aptInterestList = payload.aptCode;
-      console.log(state.aptInterestList);
+    SET_APTINTERESTCODE(state, payload) {
+      state.aptInterestCode = payload.aptInterestCode;
+      console.log(state.aptInterestCode);
     },
-    SET_APTINTERESTINFO(state, payload) {
-      state.aptInterestInfo = payload.aptInfo;
-      console.log(state.aptInterestInfo);
+    SET_APTINTERESTNAME(state, payload) {
+      state.aptInterestName = payload.aptInterestName;
+      console.log("최종 아파트 정보 : ", state.aptInterestName);
     },
   },
   actions: {
@@ -56,7 +56,6 @@ const aptStore = {
     },
 
     async aptList({ commit }, aptCodeInfo) {
-      console.log(aptCodeInfo);
       let { data } = await http.post("/apts/", aptCodeInfo);
 
       let aptInfo = data.regcodes;
@@ -71,22 +70,22 @@ const aptStore = {
     },
 
     async aptRegistInterest(_, interestInfo) {
+      console.log("아파트 등록 실행", interestInfo);
       await http.post("/apts/interest", interestInfo);
     },
 
-    async aptInterestView({ commit }, userIdInfo) {
-      console.log(userIdInfo);
+    async aptInterestList({ commit }, userIdInfo) {
       let { data } = await http.post("/apts/list", userIdInfo);
 
-      let aptCode = data;
-      commit("SET_APTINTERESTVIEW", { aptCode });
+      let aptInterestCode = data;
+      commit("SET_APTINTERESTCODE", { aptInterestCode });
     },
 
-    async aptInterestInfo({ commit }, aptCodeInfo) {
-      let { data } = await http.post("/apts/aptInfo", aptCodeInfo);
+    async aptInterestName({ commit }, aptInterestCode) {
+      let { data } = await http.post("/apts/aptInfo", aptInterestCode);
 
-      let aptInfo = data;
-      commit("SET_APTINTERESTINFO", { aptInfo });
+      let aptInfo = data.regcodes;
+      commit("SET_APTINFO", { aptInfo });
     },
   },
 };
